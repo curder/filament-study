@@ -247,6 +247,78 @@ public function panel(Panel $panel): Panel
 }
 ```
 
+## 更改登录/注册表单
+
+如果在一些项目中需要覆盖登录/注册表单中字段的标签、默认值等，请按照以下步骤操作。
+
+1. 创建自定义的类并继承自 `Filament\Pages\Auth\Login`
+
+   ```php
+   // app\Filament\Pages\Auth\Login.php
+
+   namespace App\Filament\Pages\Auth;
+    
+   use Filament\Pages\Auth\Login as BaseLogin;
+    
+   class Login extends BaseLogin
+   {
+       // Any customizations will go here
+   }
+   ```
+
+2. 在 `AdminPanelServiceProvider` 中指定该类
+
+   ```php
+   // app/Providers/Filament/AdminPanelProvider.php
+
+   // ...
+   use App\Filament\Pages\Auth\Login;
+    
+   public function panel(Panel $panel): Panel
+   {
+     // ...
+     $panel->login(Login::class),
+   }
+   ```
+
+3. 覆盖对应字段的方法
+ 
+   比如下面对 `Email` 和 `Password` 字段进行覆盖，设置默认值。
+   ```php
+   // app\Filament\Pages\Auth\Login.php
+
+   <?php
+
+   namespace App\Filament\Resources\Pages\Auth;
+
+   use Filament\Forms\Components\Component;
+   use Filament\Pages\Auth\Login as BaseLogin;
+
+   class Login extends BaseLogin
+   {
+        protected function getEmailFormComponent(): Component
+        {
+           $component = parent::getEmailFormComponent();
+
+           $component->default('test@example.com'); // ![code ++]
+
+           return $component;
+       }
+
+       protected function getPasswordFormComponent(): Component
+       {
+           $component = parent::getPasswordFormComponent();
+
+           $component->default('password'); // ![code ++]
+
+           return $component;
+       }
+   }
+   ```
+
+更多 Filament 自带的页面类可以[查看仓库对应文件覆盖的可用方法的列表](https://github.com/filamentphp/filament/tree/3.x/packages/panels/src/Pages/Auth)。
+
+
 ## 添加网站 favicon 图标
 
 使用 `favicon` 方法传递图标的公共 URL 来达到定制网站图标 favicon 的目的。
