@@ -3,12 +3,12 @@ import {defineConfig} from 'vitepress'
 export default defineConfig({
     lang: "zh-CN",
     base: "/filament-study/",
-    title: "Filament Panel Study",
+    title: "Filament PHP Study",
     description: "Record some experience of using filament php panel.",
     lastUpdated: true,
     themeConfig: {
         logo: "",
-        siteTitle: "代码片段",
+        siteTitle: "Filament PHP",
         outline: {
             label: "章节导航",
             level: 'deep',
@@ -21,11 +21,11 @@ export default defineConfig({
             next: '下一页'
         },
         editLink: {
-            pattern: "https://github.com/curder/code-snippets/edit/master/docs/:path",
+            pattern: "https://github.com/curder/filament-study/edit/master/docs/:path",
             text: '编辑它'
         },
         socialLinks: [
-            {icon: 'github', link: 'https://github.com/curder/code-snippets'}
+            {icon: 'github', link: 'https://github.com/curder/filament-study'}
         ],
         nav: nav(),
         sidebar: {
@@ -46,7 +46,8 @@ function sidebarBasic() {
         {
             text: '',
             items: [
-                {text: "定制面板", link: "/basic/customize-panel"}
+                {text: "定制面板", link: "/basic/customize-panel"},
+                {text: '插件推荐', link: "basic/recommended-plugins"},
             ]
         },
     ];
