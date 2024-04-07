@@ -46,8 +46,9 @@ function sidebarBasic() {
         {
             text: '',
             items: [
-                {text: "定制面板", link: "/basic/customize-panel"},
-                {text: '插件推荐', link: "basic/recommended-plugins"},
+                {text: "定制面板 Panel Builder", link: "/basic/customize-panel"},
+                {text: "表单 Form Builder", link: "/basic/form-builder"},
+                {text: '插件推荐 Plugins', link: "basic/recommended-plugins"},
             ]
         },
     ];
