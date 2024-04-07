@@ -29,22 +29,25 @@ export default defineConfig({
         ],
         nav: nav(),
         sidebar: {
-            "/guide": sidebarGuide(),
+            "/basic": sidebarBasic(),
         }
     }
 });
 
 
-function nav()
-{
+function nav() {
     return [
-        //
+        {text: "基础", link: "/basic/customize-panel", activeMatch: "/basic/"},
     ];
 }
 
-function sidebarGuide()
-{
+function sidebarBasic() {
     return [
-        //
+        {
+            text: '',
+            items: [
+                {text: "定制面板", link: "/basic/customize-panel"}
+            ]
+        },
     ];
 }

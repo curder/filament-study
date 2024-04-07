@@ -1,0 +1,604 @@
+# 定制面板
+
+在 [`Filament`](https://filamentphp.com/docs) 中允许对管理面板进行一些自定义，比如更改主题配色、更改字体、更改界面的 Logo 等。
+
+它们的修改都是在 `app/Providers/Filament/AdminPanelProvider.php` 文件的 `panel` 方法中。
+
+## 更改主题配色 `colors()`
+
+1. 通过 `color` 方法指定具体配色，它们默认来自 [tailwind 自定义颜色](https://tailwindcss.com/docs/customizing-colors)。
+
+    ```php
+    use Filament\Panel;
+    use Filament\Support\Colors\Color;
+
+    public function panel(Panel $panel): Panel
+    {
+        return $panel
+            // ...
+            ->colors([
+              'danger' => Color::Red,
+              'gray' => Color::Slate,
+              'info' => Color::Blue,
+              'primary' => Color::Blue,
+              'success' => Color::Green,
+              'warning' => Color::Amber,
+            ]);
+    }
+    ```
+
+2. 使用非 Tailwind 提供的颜色
+
+    - 通过以 RGB 格式传递从 50 到 950 的色调数组来使用 Tailwind CSS 调色板中未包含的自定义颜色
+
+   ```php
+    use Filament\Support\Facades\FilamentColor;
+
+    public function boot()
+    {
+        FilamentColor::register([
+            'danger' => [
+                50 => '254, 242, 242',
+                100 => '254, 226, 226',
+                200 => '254, 202, 202',
+                300 => '252, 165, 165',
+                400 => '248, 113, 113',
+                500 => '239, 68, 68',
+                600 => '220, 38, 38',
+                700 => '185, 28, 28',
+                800 => '153, 27, 27',
+                900 => '127, 29, 29',
+                950 => '69, 10, 10',
+            ],
+        ]);
+    }
+   ```
+
+   - 从十六进制代码生成自定义颜色 `Color::hex()`
+
+   ```php
+   use Filament\Support\Colors\Color;
+   use Filament\Support\Facades\FilamentColor;
+
+   FilamentColor::register([
+       'danger' => Color::hex('#ff0000'),
+   ]);
+   ```
+
+   - 从 RGB 值生成自定义颜色 `Color::rgb()`
+
+   ```php
+   use Filament\Support\Colors\Color;
+   use Filament\Support\Facades\FilamentColor;
+
+   FilamentColor::register([
+       'danger' => Color::rgb('rgb(255, 0, 0)'),
+   ]);
+   ```
+
+3. 使用 rgb 方式
+
+```php
+use Filament\Panel;
+use Filament\Support\Colors\Color;
+
+public function panel(Panel $panel): Panel
+{
+   return $panel
+       // ...
+       ->colors([
+         'primary' => '#6366f1',
+         'danger' => 'rgb(99, 102, 241)',
+       ]);
+}
+```
+
+## 更改字体 `font()`
+
+默认情况下，Filament 使用的是 [Inter](https://fonts.bunny.net/family/inter) 字体。可以使用 `font()` 方法更改默认设置。
+
+```php
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->font('JetBrains Mono');
+}
+```
+
+### 使用本地字体
+
+如果想从本地样式表提供字体，则可以使用 `LocalFontProvider`：
+
+```php
+use Filament\FontProviders\LocalFontProvider;
+ 
+$panel->font(
+    'Inter',
+    url: asset('css/fonts.css'),
+    provider: LocalFontProvider::class,
+)
+```
+
+## 添加Logo `logo()`
+
+默认情况下，`Filament` 使用 `.env` 文件中的 `APP_NAME` 配置的文本来呈现简单的 Logo 。
+
+### `brandName()`
+
+如果想简单地更改徽标中使用的文本，可以使用 `brandName()` 方法：
+
+```php
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->brandName('Filament App');
+}
+```
+
+### `brandLogo()`
+
+如果需要渲染图像的话可以将 URL 传递给 `brandLogo()` 方法：
+
+```php
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->brandLogo(asset('images/logo.svg'));
+}
+```
+
+或者也可以直接将 HTML 通过回调函数传递给 `brandLogo()` 方法来渲染内联 SVG 元素。
+
+```php
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->brandLogo(fn () => view('filament.admin.logo'));
+}
+```
+
+如果需要在应用程序处于深色模式时使用不同的 Logo ，可以以相同的方式将其传递给 `darkModeBrandLogo()` 。
+
+可以使用 `brandLogoHeight()` 方法自定义渲染 Logo 的高度。
+
+```php
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->brandLogo(fn () => view('filament.admin.logo'))
+      	->darkModeBrandLogo(fn () => view('filament.admin.dark-logo'))
+        ->brandLogoHeight('2rem');
+}
+```
+
+## 开启 spa 模式 `spa()`
+
+SPA 模式利用 [Livewire 的 wire:navigate](https://livewire.laravel.com/docs/navigate) 功能，使服务器渲染的面板感觉像单页面应用程序，页面加载之间的延迟更短，并且针对较长的请求提供加载栏。要在面板上启用 SPA 模式，可以使用 `spa()` 方法
+
+```php
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+      	->spa();
+}
+```
+
+## 更改后台路径
+
+在 `AdminServerProvider.php` 文件中，可以使用 `path()` 方法更改应用程序可访问的路径：
+
+```php
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->path('cp');
+}
+```
+
+如果希望应用程序无需任何前缀即可访问，可以将其设置为空字符串：
+
+```php
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->path('');
+}
+```
+
+>  这样的话需要注意，保持 `routes/web.php` 文件中没有对 `/` uri 有定义。否则，`routes/web.php` 中定义的路由优先级会更高。
+
+## 更改登录和注册地址
+
+在 `AdminServerProvider.php` 文件中，使用 `loginRouteSlug('singin')` 配置登录的 `uri`，使用 `registrationRouteSlug('signup')` 配置注册的 `uri`。
+
+```php
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->loginRouteSlug('signin')  
+		->registrationRouteSlug('signup');
+}
+```
+
+## 添加网站 favicon 图标
+
+使用 `favicon` 方法传递图标的公共 URL 来达到定制网站图标 favicon 的目的。
+
+```php
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->favicon(asset('images/favicon.png'));
+}
+```
+
+## 渲染钩子
+
+要注册渲染钩子，可以从服务提供商 Provider 或中间件 Middleware 中调用 `FilamentView::registerRenderHook()`。其中第一个参数是渲染钩子的名称，第二个参数是返回要渲染的内容的回调：
+
+```php
+use Filament\Panel;
+use Illuminate\Support\Facades\Blade;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->renderHook(
+            'panels::body.start',
+            fn (): string => Blade::render('@livewire(\'livewire-ui-modal\')'),
+        );
+}
+```
+
+还可以渲染文件中的视图内容
+
+```php
+use Filament\Support\Facades\FilamentView;
+use Illuminate\Contracts\View\View;
+ 
+FilamentView::registerRenderHook(
+    'panels::body.start',
+    fn (): View => view('impersonation-banner'),
+);
+```
+
+更多可用的钩子名称[可以在这里查看](https://filamentphp.com/docs/3.x/support/render-hooks#available-render-hooks)。
+
+## 热加载
+
+在开发项目时经常需要根据修改刷新页面，此时配置热加载显得尤为重要。
+
+1. 配置 `vite.config.js`
+
+   导入 `laravel-vite-plugin` 默认的刷新监听路径的同时添加额外的热加载目录。
+
+    ```js
+    import {defineConfig} from 'vite';
+    import laravel, {refreshPaths} from 'laravel-vite-plugin';
+    
+    export default defineConfig({
+        plugins: [
+            laravel({
+                input: ['resources/css/app.css', 'resources/js/app.js'],
+                // refresh: true,
+                refresh: [
+                    ...refreshPaths,
+                    'app/Livewire/**',
+                    'app/Filament/**',
+                ],
+            }),
+        ],
+    });
+    
+    ```
+
+2. 使用 `rederHook` 方法在管理页面注入 `resources/js/app.js`
+
+    ```php
+    use Filament\Panel;
+    use Illuminate\Support\Facades\Blade;
+     
+    public function panel(Panel $panel): Panel
+    {
+        return $panel
+            // ...
+            ->renderHook(
+                'panels::body.end',
+                fn (): string => $this->app->environment('local')
+                    ? Blade::render('@vite(\'resources/js/app.js\')')
+                    : ''
+            );
+    }
+    ```
+
+进行上面的配置后，比如修改 Filament 表单字段的后会及时刷新页面，方便开发查看修改的结果。
+
+## 设置域名
+
+默认情况下，Filament 将响应来自所有域的请求。
+
+如果想将其范围限制在特定域，可以使用 `domain()` 方法，类似于 Laravel 中的 `Route::domain()` 配置。
+
+```php
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->domain('cp.domain.com');
+}
+```
+
+## 自定义最大内容宽度
+
+默认情况下，Filament 会限制页面内容的宽度，因此在大屏幕上不会变得太宽，要更改此设置，可以使用 `maxContentWidth()` 方法。
+
+选项有：`ExtraSmall`, `Small`, `Medium`, `Large`, `ExtraLarge`, `TwoExtraLarge`, `ThreeExtraLarge`, `FourExtraLarge`, `FiveExtraLarge`, `SixExtraLarge`, `SevenExtraLarge`, `Prose`, `ScreenSmall`, `ScreenMedium`, `ScreenLarge`, `ScreenExtraLarge`, `ScreenTwoExtraLarge` 和 `Full`。
+
+默认的值是 `SevenExtraLarge`：
+
+```php
+use Filament\Panel;
+use Filament\Support\Enums\MaxWidth;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->maxContentWidth(MaxWidth::Full);
+}
+```
+
+## 导航 Navigation
+
+### 顶部导航 topNavigation()
+
+默认情况下，Filament 使用侧边栏导航。更改此配置可以使用 `topNavigation()` 方法将导航置于顶部：
+
+```php
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->topNavigation();
+}
+```
+
+### 导航项分组 `navigationGroup`
+
+通过指定资源类 Resources 和自定义页面的 `$navigationGroup` 属性对导航菜单项进行分组：
+
+```php
+protected static ?string $navigationGroup = 'Settings';
+```
+
+在同一个导航分组中的所有菜单项会被集中到同一个分组标签下显示，比如上面的 `Settings`。未分组的菜单项则被保留在侧边栏顶部。
+
+或者使用 `getNavigationGroup()` 方法对导航菜单项进行分组：
+
+```php
+public static function getNavigationGroup(): ?string 
+{
+    return __('settings.navigation_group');
+}
+```
+
+### 自定义导航分组 `navigationGroups()`
+
+调用 `navigationGroups()`，并按顺序传入 `NavigationGroup` 对象来自定义导航分组：
+
+```php
+use Filament\Navigation\NavigationGroup;
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->navigationGroups([
+            NavigationGroup::make()
+                 ->label('Shop')
+                 ->icon('heroicon-o-shopping-cart'),
+            NavigationGroup::make()
+                ->label('Blog')
+                ->icon('heroicon-o-pencil'),
+            NavigationGroup::make()
+                ->label('Settings')
+                ->icon('heroicon-o-cog-6-tooth')
+                ->collapsed(), // 默认折叠
+        ]);
+}
+```
+
+导航分组的排序规则按照上面的顺序应该是：`Shop` 、`Blog` 和 `Settings`。
+
+### 导航分组不可折叠 `collapsibleNavigationGroups()`
+
+默认情况下，导航分组是可折叠的，可以在配置中让所有的分组全局生效。
+
+```php
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->collapsibleNavigationGroups(false);
+}
+```
+
+### 桌面端折叠侧边栏
+
+通过下面的配置可以让桌面端的侧边栏像移动端一样可折叠：
+
+```php
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->sidebarCollapsibleOnDesktop()
+        ->sidebarFullyCollapsibleOnDesktop();
+}
+```
+
+### 注册自定义导航菜单项 `navigationItems()`
+
+在配置中注册自定义导航菜单：
+
+```php
+use Filament\Navigation\NavigationItem;
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->navigationItems([
+            NavigationItem::make('Analytics')
+                ->url('https://filament.pirsch.io', shouldOpenInNewTab: true)
+                ->icon('heroicon-o-presentation-chart-line')
+                ->group('Reports')
+                ->sort(3),
+            // ...
+        ]);
+}
+```
+
+#### 条件性隐藏导航菜单项
+
+```php
+use Filament\Navigation\NavigationItem;
+ 
+NavigationItem::make('Analytics')
+    ->visible(auth()->user()->can('view-analytics'))
+    // or
+    ->hidden(! auth()->user()->can('view-analytics')),
+```
+
+### 禁用导航 `navigation(false)`
+
+传入 `false` 到 `navigation()` 方法来完全禁用导航：
+
+```php
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->navigation(false);
+}
+```
+
+## 自定义用户菜单 `userMenuItems()`
+
+用户菜单在后台布局的右上角，要在用户菜单中注册新项目，需要使用配置：
+
+```php
+use Filament\Navigation\MenuItem;
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->userMenuItems([
+            MenuItem::make()
+                ->label('Settings')
+                ->url(route('filament.pages.settings'))
+                ->icon('heroicon-o-cog-6-tooth'),
+            // ...
+        ]);
+}
+```
+
+### 自定义 Profile 链接
+
+要在用户菜单顶部自定义用户简介链接，用 `profile` 作为键名注册新的项目:
+
+```php
+use Filament\Navigation\MenuItem;
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->userMenuItems([
+            'profile' => MenuItem::make()->label('Edit profile'),
+            // ...
+        ]);
+}
+```
+
+### 自定义退出链接
+
+要在用户菜单的尾部自定义用户账户链接，用 `logout` 作为数组键名注册新的项目:
+
+```php
+use Filament\Navigation\MenuItem;
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->userMenuItems([
+            'logout' => MenuItem::make()->label('Log out'),
+            // ...
+        ]);
+}
+```
+
+## 禁用面包屑
+
+默认布局会显示面包屑，用来显示当前页面在应用层次结构中的位置。
+
+可以在配置中禁用面包屑：
+
+```php
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->breadcrumbs(false);
+}
+```
