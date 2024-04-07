@@ -1,0 +1,20 @@
+{
+  "name": "filament-study",
+  "version": "1.0.0",
+  "description": "Record some experience of using filament php panel.",
+  "repository": "git@github.com:curder/filament-study.git",
+  "author": "curder <q.curder@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "engines": {
+    "node": ">=18.0"
+  },
+  "devDependencies": {
+    "vitepress": "^1.0.2"
+  }
+}
