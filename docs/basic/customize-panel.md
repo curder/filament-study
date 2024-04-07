@@ -419,7 +419,7 @@ public static function getNavigationGroup(): ?string
 
 ### 自定义导航分组 `navigationGroups()`
 
-调用 `navigationGroups()`，并按顺序传入 `NavigationGroup` 对象来自定义导航分组：
+调用 `navigationGroups()`，并按顺序传入 `NavigationGroup` 对象来自定义导航分组：
 
 ```php
 use Filament\Navigation\NavigationGroup;
@@ -513,7 +513,7 @@ NavigationItem::make('Analytics')
 
 ### 禁用导航 `navigation(false)`
 
-传入 `false` 到 `navigation()` 方法来完全禁用导航：
+传入 `false` 到 `navigation()` 方法来完全禁用导航：
 
 ```php
 use Filament\Panel;
@@ -550,7 +550,7 @@ public function panel(Panel $panel): Panel
 
 ### 自定义 Profile 链接
 
-要在用户菜单顶部自定义用户简介链接，用 `profile` 作为键名注册新的项目:
+要在用户菜单顶部自定义用户简介链接，用 `profile` 作为键名注册新的项目:
 
 ```php
 use Filament\Navigation\MenuItem;
@@ -569,7 +569,7 @@ public function panel(Panel $panel): Panel
 
 ### 自定义退出链接
 
-要在用户菜单的尾部自定义用户账户链接，用 `logout` 作为数组键名注册新的项目:
+要在用户菜单的尾部自定义用户账户链接，用 `logout` 作为数组键名注册新的项目:
 
 ```php
 use Filament\Navigation\MenuItem;
@@ -583,6 +583,59 @@ public function panel(Panel $panel): Panel
             'logout' => MenuItem::make()->label('Log out'),
             // ...
         ]);
+}
+```
+
+### 自定义退出重定向地址
+
+默认情况下，当从 Filament 应用程序注销时，将会被重定向到 Filament 登录页面。
+
+但是某些情况下可能希望在注销后重定向到不同的页面，比如可能想要重定向到主页或您自己的自定义登录页面。
+
+为此，可以在 `app\Filament\Responses` 目录中创建一个实现 `Filament\Http\Responses\Auth\Contracts\LogoutResponse` 接口的自定义 `LogoutResponse` 类。 
+
+此接口要求实现 `toResponse()`方法并返回 `RedirectResponse` 的实例。
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Filament\Responses;
+
+use Filament\Http\Responses\Auth\Contracts\LogoutResponse as Responsable;
+use Illuminate\Http\RedirectResponse;
+
+class LogoutResponse implements Responsable
+{
+    public function toResponse($request): RedirectResponse
+    {
+        return redirect()->to('/');
+    }
+}
+```
+
+然后，将 `LogoutResponse` 类绑定到 `LogoutResponseContract`：
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Providers\Filament;
+
+use App\Filament\Responses\LogoutResponse;
+use Filament\Http\Responses\Auth\Contracts\LogoutResponse as LogoutResponseContract;
+
+final class AdminPanelServiceProvider extends PanelProvider
+{
+    // ...
+    public function register(): void
+    {
+        parent::register();
+
+        $this->app->bind(LogoutResponseContract::class, LogoutResponse::class); // [!code ++]
+    }
 }
 ```
 
