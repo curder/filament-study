@@ -61,3 +61,23 @@ Tables\Columns\TextColumn::make('user.full_name')
         fn ($state, Order $order) => $order->user->first_name . ' ' . $order->user->last_name
     ),
 ```
+
+## 删除记录时删除附件
+
+当用户删除记录时，Filament 不会删除资源对应所上传的文件。
+
+可以在 DeleteAction 操作的 `after()` 方法中编写对应逻辑：
+
+```php
+Actions\DeleteAction::make()
+    ->after(function (YourModel $record) {
+        // delete single
+        if ($record->photo) {
+            Storage::disk('public')->delete($record->photo);
+        }
+        // delete multiple
+        if ($record->galery) {
+            foreach ($record->galery as $ph) Storage::disk('public')->delete($ph);
+        }
+    })
+```
