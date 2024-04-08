@@ -121,3 +121,105 @@ Forms\Components\TextInput::make('slug')
     ->required(),
 ```
 :::
+
+## 枚举类
+
+Filament 支持使用枚举类作为单选或下拉选项的选项，并且可以定义对应标签Label、颜色 Color和图标 Icon。
+
+::: code-group
+
+```php [定义枚举类]
+<?php
+
+namespace App\Enums;
+
+use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasIcon;
+use Filament\Support\Contracts\HasLabel;
+
+enum Status: string implements HasColor, HasLabel, HasIcon
+{
+    case Draft = 'draft';
+    case Pending = 'pending';
+    case Published = 'published';
+    case Archived = 'archived';
+    case Deleted = 'deleted';
+
+    public function getColor(): string
+    {
+        return match ($this) {
+            self::Draft => Color::Primary->value,
+            self::Pending => Color::Info->value,
+            self::Published => Color::Success->value,
+            self::Archived => Color::Gray->value,
+            self::Deleted => Color::Danger->value,
+        };
+    }
+
+    public function getLabel(): string
+    {
+        return match ($this) {
+            self::Draft => __('enums/status.draft'),
+            self::Pending => __('enums/status.pending'),
+            self::Published => __('enums/status.published'),
+            self::Archived => __('enums/status.archived'),
+            self::Deleted => __('enums/status.deleted'),
+        };
+    }
+
+    public function getIcon(): ?string
+    {
+        return match ($this) {
+            self::Draft => 'heroicon-o-archive-box-arrow-down',
+            self::Pending => 'heroicon-o-inbox',
+            self::Published => 'heroicon-o-archive-box',
+            self::Archived => 'heroicon-o-archive-box-x-mark',
+            self::Deleted => 'heroicon-o-trash',
+        };
+    }
+
+}
+```
+
+```php [Post 模型]
+use App\Enums\Status;
+
+protected function casts(): array
+{
+    return [
+        'status' => Status::class,
+    ];
+}
+```
+
+```php [PostResource 资源类]
+// 表单
+public static function form(Form $form): Form
+{
+  return $form
+    ->schema([
+       Select::make('status')
+          ->native(false)
+          ->options(Status::class)
+          ->label(__('posts.status_label'))
+          ->helperText(__('posts.status_help'))
+          ->default(Status::Draft->value),
+    ]);
+}
+
+// 表格
+
+public static function table(Table $table): Table
+{
+    return $table
+      ->schema([
+        TextColumn::make('status')
+            ->label(__('posts.status_label'))
+            ->disabledClick()
+            ->badge(),
+    ]);
+}
+```
+:::
+
+![](images/form-builder/enum-status-labe-icon-and-color.png)
