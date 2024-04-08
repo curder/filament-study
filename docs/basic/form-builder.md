@@ -89,3 +89,35 @@ class AdminPanelServiceProvider extends PanelProvider
               ->toArray();
       }),
   ```
+
+## 禁用表单中的字段 `disabledOn()`
+
+如果需要在新增 `create` 或编辑 `edit` 表单中禁用某个字段时可以使用 `disabledOn()` 方法。
+
+::: code-group
+```php [编辑时禁用]
+public static function form(Form $form): Form
+{
+    return $form
+        ->schema([
+            Forms\Components\TextInput::make('name'),
+            Forms\Components\TextInput::make('slug')
+                ->disabledOn('edit') // [!code ++] 
+                ->required(),
+                // ...
+        ]);
+}
+```
+
+```php [新增时禁用]
+Forms\Components\TextInput::make('slug')
+    ->disabledOn('create') // [!code ++] 
+    ->required(),
+```
+
+```php [新增和编辑时禁用]
+Forms\Components\TextInput::make('slug')
+    ->disabledOn(['create', 'edit']) // [!code ++] 
+    ->required(),
+```
+:::
