@@ -31,3 +31,22 @@ public static function table(Table $table): Table
 
 也可以返回空字符串或 `null`，这样点击表格行时没有任何反应。
 
+## 表格行操作仅显示图标
+
+如果认为表格操作相关的编辑或删除等操作占用了表格太多空间，可以通过配置 `label('')`，仅显示图标来缩短它。
+
+```php
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\EditAction;
+
+ public static function table(Table $table): Table
+    {
+        return $table
+            // ...
+            ->actions([
+                EditAction::make()->label(''),
+                DeleteAction::make()->label(''),
+                // ...
+            ]);
+```
+
