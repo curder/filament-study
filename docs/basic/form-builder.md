@@ -223,3 +223,18 @@ public static function table(Table $table): Table
 :::
 
 ![](images/form-builder/enum-status-labe-icon-and-color.png)
+
+
+## 在标签中渲染 HTML
+
+在字段 `label()` 中需要渲染 HTML（例如链接）的话可以返回 `HtmlString` 对象以便将 HTML 添加到字段标签。
+
+```php
+use Illuminate\Support\HtmlString;
+ 
+Forms\Components\Checkbox::make('accept')
+    ->label(fn() => new HtmlString('I accept the <a class="underline" href="/terms" target="_blank">terms and conditions</a>'))
+    ->required()
+```
+
+![](images/form-builder/render-html-in-label.png)
