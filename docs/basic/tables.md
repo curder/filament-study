@@ -50,3 +50,14 @@ use Filament\Tables\Actions\EditAction;
             ]);
 ```
 
+## 格式化输出 `formatStateUsing()`
+
+有些需求下需要将多个数据库字段合并到一个表列中，可以通过使用 `->formatStateUsing()` 方法来完成这个操作。
+
+```php
+Tables\Columns\TextColumn::make('user.full_name')
+    ->label('Customer Name')
+    ->formatStateUsing(
+        fn ($state, Order $order) => $order->user->first_name . ' ' . $order->user->last_name
+    ),
+```
