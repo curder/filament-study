@@ -318,6 +318,110 @@ public function panel(Panel $panel): Panel
 
 更多 Filament 自带的页面类可以[查看仓库对应文件覆盖的可用方法的列表](https://github.com/filamentphp/filament/tree/3.x/packages/panels/src/Pages/Auth)。
 
+## 使用用户名或电子邮件登录
+
+默认情况下，Filament 支持使用邮箱进行登录，可以通过对 `Login` 类进行重写完成扩展。
+
+1. 创建自定义的类并继承自 `Filament\Pages\Auth\Login`
+
+   ```php
+   // app\Filament\Pages\Auth\Login.php
+   namespace App\Filament\Pages\Auth;
+    
+   use Filament\Pages\Auth\Login as BaseLogin;
+    
+   class Login extends BaseLogin
+   {
+       // Any customizations will go here
+   }
+   ```
+   > Laravel 11+，可以通过命令快速创建类。`php artisan make:class Filament\Pages\Auth\Login`
+
+2. 在 `FilamentServiceProvider` 中注册自定义的类
+   ```php
+
+   php
+   // app/Providers/Filament/AdminPanelProvider.php
+
+   // ...
+   use App\Filament\Pages\Auth\Login;
+    
+   public function panel(Panel $panel): Panel
+   {
+     // ...
+     $panel->login(Login::class),
+   }
+   ```
+
+3. 覆盖对应字段的方法
+
+```php
+<?php
+
+namespace App\Filament\Pages\Auth;
+
+use Filament\Forms\Components\Component;
+use Filament\Forms\Components\TextInput;
+use Illuminate\Validation\ValidationException;
+
+class Login extends \Filament\Pages\Auth\Login
+{
+    protected function getForms(): array
+    {
+        return [
+            'form' => $this->form(
+                $this->makeForm()
+                    ->schema([
+                        $this->getNameOrEmailFormComponent(), // [!code ++]
+                        $this->getEmailFormComponent(), // [!code --]
+                        $this->getPasswordFormComponent(),
+                        $this->getRememberFormComponent(),
+                    ])
+                    ->statePath('data'),
+            ),
+        ];
+    }
+
+    protected function getNameOrEmailFormComponent(): Component
+    {
+        return TextInput::make('name_or_email')
+            ->label('Name Or Email')  // [!code ++]
+            ->label(__('filament-panels::pages/auth/login.form.email.label'))  // [!code --]
+            ->email() // [!code --]
+            ->required()
+            ->autocomplete()
+            ->autofocus()
+            ->extraInputAttributes(['tabindex' => 1]);
+    }
+
+    /**
+     * @param  array<string, mixed>  $data
+     * @return array<string, mixed>
+     */
+    protected function getCredentialsFromFormData(array $data): array
+    {
+        $type = filter_var($data['name_or_email'], FILTER_VALIDATE_EMAIL)
+            ? 'email'
+            : 'name';
+        return [
+            'email' => $data['email'], // [!code --]
+            $type => $data['name_or_email'], // [!code ++]
+            'password' => $data['password'],
+        ];
+    }
+
+    protected function throwFailureValidationException(): never
+    {
+        throw ValidationException::withMessages([
+            'data.email' => __('filament-panels::pages/auth/login.messages.failed'),  // [!code --]
+            'data.name_or_email' => __('filament-panels::pages/auth/login.messages.failed'),  // [!code ++]
+        ]);
+    }
+}
+```
+
+经过上面的自定义配置后，登录页面允许使用用户名或密码进行登录。
+
 
 ## 添加网站 favicon 图标
 
