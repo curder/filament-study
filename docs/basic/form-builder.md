@@ -238,3 +238,16 @@ Forms\Components\Checkbox::make('accept')
 ```
 
 ![](images/form-builder/render-html-in-label.png)
+
+## 编辑表单中的唯一记录
+
+在编辑表单中，如果需要确保表单中只有一个记录，可以使用 `->unique()` 方法。
+
+如果使用 `->unique()` 进行验证，请不要忘记忽略编辑表单中的当前记录。否则将在编辑表单中收到验证错误 `The [field] has already been taken.`。
+
+```php
+TextInput::make('name')
+    ->required()
+    ->unique(), // [!code --] 
+    ->unique(ignoreRecord: true), // [!code ++]
+```
