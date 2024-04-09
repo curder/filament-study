@@ -7,6 +7,9 @@ export default defineConfig({
     description: "Record some experience of using filament php panel.",
     lastUpdated: true,
     themeConfig: {
+        search: {
+            provider: 'local'
+        },
         logo: "",
         siteTitle: "Filament PHP",
         outline: {
