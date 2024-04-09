@@ -438,12 +438,13 @@ public function panel(Panel $panel): Panel
 }
 ```
 
-## 渲染钩子
+## 渲染钩子 `renderHook` 
 
 要注册渲染钩子，可以从服务提供商 Provider 或中间件 Middleware 中调用 `FilamentView::registerRenderHook()`。其中第一个参数是渲染钩子的名称，第二个参数是返回要渲染的内容的回调：
 
 ```php
 use Filament\Panel;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\Blade;
  
 public function panel(Panel $panel): Panel
@@ -451,20 +452,21 @@ public function panel(Panel $panel): Panel
     return $panel
         // ...
         ->renderHook(
-            'panels::body.start',
+            PanelsRenderHook::BODY_START,
             fn (): string => Blade::render('@livewire(\'livewire-ui-modal\')'),
         );
 }
 ```
 
-还可以渲染文件中的视图内容
+也可以使用 `registerRenderHook()` 方法渲染渲染指定文件的内容：
 
 ```php
 use Filament\Support\Facades\FilamentView;
 use Illuminate\Contracts\View\View;
- 
+use Filament\View\PanelsRenderHook;
+
 FilamentView::registerRenderHook(
-    'panels::body.start',
+    PanelsRenderHook::BODY_START,
     fn (): View => view('impersonation-banner'),
 );
 ```
