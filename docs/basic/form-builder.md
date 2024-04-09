@@ -269,3 +269,21 @@ TextInput::make('name')
     ->unique(), // [!code --] 
     ->unique(ignoreRecord: true), // [!code ++]
 ```
+
+## 关联关系自定义选项显示 
+
+当在选择菜单或过滤器中使用关系并且该模型是可翻译的时，以下是获取可翻译属性的方法：
+
+```php
+Forms\Components\Select::make('roles')
+  ->label(__('filament-shield::filament-shield.resource.label.role'))
+  ->relationship('roles', 'name')
+  ->getOptionLabelFromRecordUsing(
+      fn (Forms\Components\Select $component, Model $record) => Role::tryFrom($record->name)?->getLabel()
+  )
+  ->multiple()
+  ->preload()
+  ->searchable(),
+```
+
+更多详情可以[查看这个 issue](https://github.com/filamentphp/filament/issues/11872#issuecomment-2002574212)。
