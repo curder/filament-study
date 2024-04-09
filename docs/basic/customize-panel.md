@@ -711,6 +711,8 @@ final class AdminPanelServiceProvider extends PanelProvider
 }
 ```
 
+类似的[注册`RegistrationResponse`](https://github.com/filamentphp/filament/blob/3.x/packages/panels/src/Http/Responses/Auth/EmailVerificationResponse.php#L10)、[邮箱验证 `EmailVerificationResponse`](https://github.com/filamentphp/filament/blob/3.x/packages/panels/src/Http/Responses/Auth/EmailVerificationResponse.php#L10)、[退出登录 `LogoutResponse`](https://github.com/filamentphp/filament/blob/3.x/packages/panels/src/Http/Responses/Auth/LogoutResponse.php#L9)和[找回密码 `PasswordResetResponse`](https://github.com/filamentphp/filament/blob/3.x/packages/panels/src/Http/Responses/Auth/PasswordResetResponse.php#L10)也可以通过上面的方法对它们进行自定义。
+
 ## 禁用面包屑
 
 默认布局会显示面包屑，用来显示当前页面在应用层次结构中的位置。
