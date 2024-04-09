@@ -1,5 +1,23 @@
 # 表单
 
+## 保存/取消按钮操作Sticky
+
+当新增、编辑表单时，如果表单内容过多，可能会导致保存/取消按钮需要下拉很久才能看到，为此可以在对应的新增、编辑类中添加如下属性解决这个问题。
+
+```php
+<?php
+
+namespace App\Filament\Resources\PostCategoryResource\Pages;
+
+class EditPost extends EditRecord
+{
+    public static bool $formActionsAreSticky = true; // [!code ++]
+}
+```
+
+![](images/form-builder/sticky-actions.png)
+
+
 ## 字段宏 `macro`
 
 如果在项目中使用的是 [filament/spatie-laravel-translatable-plugin](https://github.com/filamentphp/spatie-laravel-translatable-plugin)，可能想向用户展示哪些字段是可翻译的。
