@@ -287,3 +287,54 @@ Forms\Components\Select::make('roles')
 ```
 
 更多详情可以[查看这个 issue](https://github.com/filamentphp/filament/issues/11872#issuecomment-2002574212)。
+
+## 密码字段加密和更新处理
+
+在处理密码字段时，编辑密码字段和创建时密码字段的要求是不一样的，比如更新用户数据。
+
+
+::: code-group
+```php [密码字段]
+use Filament\Forms\Components\TextInput;
+ 
+TextInput::make('password')
+    ->password()
+```
+
+```php [对字段进行哈希处理]
+use Filament\Forms\Components\TextInput;
+use Illuminate\Support\Facades\Hash;
+ 
+TextInput::make('password')
+    // 密码字段，不明文显示输入
+    ->password()
+    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+```
+
+
+```php [如果字段为空则不覆盖现有密码]
+use Filament\Forms\Components\TextInput;
+use Illuminate\Support\Facades\Hash;
+ 
+TextInput::make('password')
+    ->password()
+    // 如果字段不为空则加密字符串
+    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+    // 如果字段为空则不覆盖现有密码
+    ->dehydrated(fn ($state) => filled($state))
+```
+
+```php [资源创建时字段必须填写]
+use Filament\Forms\Components\TextInput;
+use Filament\Pages\Page;
+use Illuminate\Support\Facades\Hash;
+ 
+TextInput::make('password')
+    ->password()
+    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+    // 当为空时则不提交当前字段
+    ->dehydrated(fn ($state) => filled($state))
+    // 编辑页面当前字段非必填
+    ->required(fn (string $operation): bool => $operation === 'create')
+```
+:::
