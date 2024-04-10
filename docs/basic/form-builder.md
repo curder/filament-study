@@ -257,6 +257,114 @@ Forms\Components\Checkbox::make('accept')
 
 ![](images/form-builder/render-html-in-label.png)
 
+## 下拉选项中渲染 HTML `allowHtml()`
+
+Filament 默认的 Select 组件通过 `choice.js` 支持渲染带有 HTML 的选项。
+
+> [!TIP] 提示 
+> 使用 `allowHtml()` 需要保证渲染的选项数据是安全的，否则可能带来 XSS 攻击。
+
+### 简单用法
+
+通过给选项标签添加HTML标签，可以在下拉选项选择时看到不同的选项文字颜色不同。
+
+```php
+use Filament\Forms;
+
+Forms\Components\Select::make('technology')
+  ->options([
+      'tailwind' => '<span class="text-blue-500">Tailwind</span>',
+      'alpine' => '<span class="text-green-500">Alpine</span>',
+      'laravel' => '<span class="text-red-500">Laravel</span>',
+      'livewire' => '<span class="text-pink-500">Livewire</span>',
+  ])
+  ->searchable()
+  ->allowHtml(),
+```
+
+### 自定义选项布局
+
+::: code-group
+
+```php [资源中 Select 组件]
+// app\Filament\Resources\PostResource
+use App\Models\User;
+use Filament\Forms;
+
+// 1. 自定义表单组件
+Forms\Components\Select::make('user_id')
+    ->label('User')
+    ->allowHtml()
+    ->searchable()
+    ->getSearchResultsUsing(function (string $search) {
+        return User::query()
+            ->where('name', 'like', "%{$search}%")
+            ->limit(50)
+            ->get()
+            ->mapWithKeys(fn($user) => [$user->getKey() => static::getCleanOptionString($user)]);
+    })
+    ->getOptionLabelUsing(function ($value): string {
+        return static::getCleanOptionString(User::query()->find($value));
+    })
+    ->required(),
+
+
+// 2. 自定义渲染逻辑，返回自定义布局的视图
+protected static function getCleanOptionString(User $user): string
+{
+    return view('filament.components.select-user-result')
+        ->with('name', $user?->name)
+        ->with('email', $user?->email)
+        ->with('avatar_url', $user?->avatar_url)
+        ->render();
+}
+```
+
+```php [自定义布局视图]
+// resources/views/filament/components/select-user-result.blade.php
+<div class="flex rounded-md relative">
+    <div class="flex">
+        <div class="px-2 py-3">
+            <div class="h-10 w-10">
+                <img src="{{ $avatar_url }}" alt="{{ $name }}" role="img" class="h-full w-full rounded-full overflow-hidden shadow object-cover" />
+            </div>
+        </div>
+
+        <div class="flex flex-col justify-center pl-3 py-2">
+            <p class="text-sm font-bold pb-1">{{ $name }}</p>
+            <div class="flex flex-col items-start">
+                <p class="text-xs leading-5">{{ $email }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+```php [用户模型文件]
+// app/Models/User.php
+<?php
+
+namespace App\Models;
+
+// ...
+class User extends Authenticatable
+{
+    // ...
+
+    public function avatarUrl(): Attribute
+    {
+        return Attribute::get(fn() => Storage::url($this->avatar));
+    }
+}
+```
+:::
+
+经过上面的定义后可以看到下拉组件的选项被修改为自定义的布局。
+
+::: details 切换查看下拉效果
+![](images/form-builder/allow-html-in-select-option-labels.png)
+:::
+
 ## 编辑表单中的唯一记录
 
 在编辑表单中，如果需要确保表单中只有一个记录，可以使用 `->unique()` 方法。
