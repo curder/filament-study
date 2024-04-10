@@ -62,6 +62,49 @@ Tables\Columns\TextColumn::make('user.full_name')
     ),
 ```
 
+
+## 渲染 HTML
+
+### `html()` 方法
+
+如果列的内容是 HTML，可以使用 `html()` 方法呈现它：
+
+```php
+use Filament\Tables;
+ 
+TextColumn::make('description')
+    ->html() // [!code ++]
+```
+
+> HTML 将在呈现之前对任何潜在的不安全内容进行清理。
+
+### `formatStateUsing()` 方法
+
+- 通过返回 `Illuminate\Support\HtmlString` 实例
+
+    ```php
+    use Filament\Tables;
+    use Illuminate\Support\HtmlString;
+
+    Tables\Columns\TextColumn::make('name')
+        ->formatStateUsing(fn (string $state): HtmlString => new HtmlString($state)) // [!code ++]
+    ```
+
+- 通过返回 `\Illuminate\Contracts\View\View` 实例
+ 
+    ```php
+    use Filament\Tables\Columns\TextColumn;
+    use Illuminate\Contracts\View\View;
+     
+    TextColumn::make('description')
+        ->formatStateUsing(fn (string $state): View => view( // [!code ++]
+            'filament.tables.columns.description-content', // [!code ++]
+            ['state' => $state], // [!code ++]
+        )) // [!code ++]
+    ```
+
+
+
 ## 删除记录时删除附件
 
 当用户删除记录时，Filament 不会删除资源对应所上传的文件。
