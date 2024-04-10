@@ -65,7 +65,20 @@ Tables\Columns\TextColumn::make('user.full_name')
 
 ## 渲染 HTML
 
-### `html()` 方法
+### 标签 `label()`
+
+在字段 `label()` 中需要渲染 HTML（例如链接）的话可以返回 `HtmlString` 对象以便将 HTML 添加到字段标签。
+
+```php
+use Filament\Tables;
+use Illuminate\Support\HtmlString;
+ 
+Tables\Components\TextColumn::make('name')
+    ->label(fn() => new HtmlString('<span style="color: red;">Name</span>'))
+```
+
+### 渲染内容
+#### `html()` 方法
 
 如果列的内容是 HTML，可以使用 `html()` 方法呈现它：
 
@@ -78,7 +91,7 @@ TextColumn::make('description')
 
 > HTML 将在呈现之前对任何潜在的不安全内容进行清理。
 
-### `formatStateUsing()` 方法
+#### `formatStateUsing()` 方法
 
 - 通过返回 `\Illuminate\Support\HtmlString` 实例
 
