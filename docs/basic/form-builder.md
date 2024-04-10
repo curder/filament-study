@@ -446,3 +446,38 @@ TextInput::make('password')
     ->required(fn (string $operation): bool => $operation === 'create') // [!code ++]
 ```
 :::
+
+
+## 将表单数据存储到 JSON 列 `statePath()`
+
+在字段名使用'点'表示法将数据存储到 json 列。下面的示例中，货币代码、名称和符号将存储在货币列中：
+
+```php
+use Filament\Forms\Components\TextInput;
+ 
+TextInput::make('payload.currency.code'),
+TextInput::make('payload.currency.name'),
+TextInput::make('payload.currency.symbol'),
+
+// 模型添加转换属性
+protected function casts(): array
+{
+    return [
+        'payload' => 'json',
+    ];
+}
+```
+
+如果需要将布局组件中的所有数据存储到 json 列，还可以使用组件上的 `statePath()` 方法将所有数据范围限制到 json 列
+
+```php
+use Filament\Forms;
+
+Forms\Components\Grid::make(1)
+    ->statePath('payload.currency') // [!code ++] 
+    ->schema([
+        Forms\Components\TextInput::make('code'),
+        Forms\Components\TextInput::make('name'),
+        Forms\Components\TextInput::make('symbol'),
+    ])
+```
