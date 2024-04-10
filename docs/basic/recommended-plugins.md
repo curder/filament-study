@@ -12,6 +12,7 @@
 | [filament/spatie-laravel-tags-plugin](https://github.com/filamentphp/spatie-laravel-tags-plugin)                 | 资源标签，基于 [laravel-tags](https://github.com/spatie/laravel-tags)                 |
 | [filament/spatie-laravel-translatable-plugin](https://github.com/filamentphp/spatie-laravel-translatable-plugin) | 字段翻译，基于[laravel-translatable](https://github.com/spatie/laravel-translatable)  |
 | [awcodes/filament-tiptap-editor](https://github.com/awcodes/filament-tiptap-editor)                              | 一款表单组件的富文本编辑器，基于 [tiptap](https://github.com/ueberdosis/tiptap)                |
+| [ryangjchandler/filament-navigation](https://github.com/ryangjchandler/filament-navigation)                      | 无限级导航管理                                                                        |
 | [bezhansalleh/filament-shield](https://github.com/bezhansalleh/filament-shield)                                  | 后台权限管理插件，基于 [laravel-permission](https://github.com/spatie/laravel-permission) |
 | [solution-forest/filament-tree](https://github.com/solutionforest/filament-tree)                                 | 对无限极分类进行排序                                                                     |
 | [stechstudio/filament-impersonate](https://github.com/stechstudio/filament-impersonate)                          | 在后台模拟用户登录，可快速对功能/权限的测试                                                         |
