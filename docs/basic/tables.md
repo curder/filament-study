@@ -80,7 +80,7 @@ TextColumn::make('description')
 
 ### `formatStateUsing()` 方法
 
-- 通过返回 `Illuminate\Support\HtmlString` 实例
+- 通过返回 `\Illuminate\Support\HtmlString` 实例
 
     ```php
     use Filament\Tables;
@@ -93,12 +93,12 @@ TextColumn::make('description')
 - 通过返回 `\Illuminate\Contracts\View\View` 实例
  
     ```php
-    use Filament\Tables\Columns\TextColumn;
+    use Filament\Tables;
     use Illuminate\Contracts\View\View;
      
-    TextColumn::make('description')
+    Tables\Columns\TextColumn::make('name')
         ->formatStateUsing(fn (string $state): View => view( // [!code ++]
-            'filament.tables.columns.description-content', // [!code ++]
+            'filament.tables.columns.name-content', // [!code ++]
             ['state' => $state], // [!code ++]
         )) // [!code ++]
     ```
