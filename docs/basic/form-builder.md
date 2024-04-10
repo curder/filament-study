@@ -441,8 +441,8 @@ TextInput::make('password')
     ->password()
     ->dehydrateStateUsing(fn ($state) => Hash::make($state))
     // 当为空时则不提交当前字段
-    ->dehydrated(fn ($state) => filled($state))
+    ->dehydrated(fn ($state) => filled($state)) // [!code ++]
     // 编辑页面当前字段非必填
-    ->required(fn (string $operation): bool => $operation === 'create')
+    ->required(fn (string $operation): bool => $operation === 'create') // [!code ++]
 ```
 :::
