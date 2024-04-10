@@ -17,3 +17,4 @@
 | [solution-forest/filament-tree](https://github.com/solutionforest/filament-tree)                                 | 对无限极分类进行排序                                                                     |
 | [stechstudio/filament-impersonate](https://github.com/stechstudio/filament-impersonate)                          | 在后台模拟用户登录，可快速对功能/权限的测试                                                         |
 | [shuvroroy/filament-spatie-laravel-backup](https://github.com/shuvroroy/filament-spatie-laravel-backup)          | 数据库备份，基于[laravel-backup](https://github.com/spatie/laravel-backup)             |
+| [awcodes/shout](https://github.com/awcodes/shout)                                                                | 表单/详情页的占位符                                                                     |
