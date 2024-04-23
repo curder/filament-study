@@ -137,3 +137,27 @@ Actions\DeleteAction::make()
         }
     })
 ```
+
+
+## 批量删除时过滤数据
+
+可以在 `before()` 方法中提供对应的回调逻辑，然后调用 `cancel()` 方法取消删除操作：
+
+```php
+Tables\Actions\DeleteBulkAction::make()
+    ->before(function (Collection $records, Tables\Actions\DeleteBulkAction $action) {
+      $exists = $records->pluck('name')->filter(
+                      fn (string $item) => \App\Enums\Role::hasLabel($item)
+                  )->isNotEmpty();
+
+      if ($exists) {
+          Notification::make()
+              ->title('Errors!')
+              ->body("You can't delete roles because it is the default role for current system.")
+              ->status('danger')
+              ->send();
+
+          $action->cancel();
+      }
+})
+```
