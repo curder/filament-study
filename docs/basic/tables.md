@@ -5,6 +5,7 @@
 默认表格行点击的跳转地址是编辑页面，使用 `recordUrl()` 方法可以自定义表格点击行时跳转的 URL。
 
 ::: code-group
+
 ```php [跳转到编辑页]
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +13,7 @@ public static function table(Table $table): Table
 {
     return $table
         // ...
-        ->recordUrl(fn (Model $record) => Pages\EditPost::getUrl([$record])),
+        ->recordUrl(fn (Model $record) => Pages\EditPost::getUrl([$record])), // [!code ++]
 }
 ```
 
@@ -23,13 +24,35 @@ public static function table(Table $table): Table
 {
     return $table
         // ...
-        ->recordUrl(fn (Model $record) => Pages\ViewPost::getUrl([$record])),
+        ->recordUrl(fn (Model $record) => Pages\ViewPost::getUrl([$record])), // [!code ++]
 }
 ```
 
 :::
 
 也可以返回空字符串或 `null`，这样点击表格行时没有任何反应。
+
+::: details 关联提示
+
+如果不存在对应的页面可以通过 `make:filament-page` 或者 `filament:page` 命令创建，比如使用下面的命令创建详情页面：
+
+```bash
+php artisan filament:page --resource PostResource --type View ViewPost
+```
+
+- `--resource` 参数值为对应页面所属资源
+- `--type` 参数值为对应页面的类型，类型包括
+    - `Custom` 自定义页面
+    - `List` 列表页面
+    - `Create` 创建页面
+    - `Edit` 编辑页面
+    - `View` 详情页面
+    - `Relationship` 关联关系页面
+    - `Manage` 简单列表页(相当于使用 `php artisan make:filament-resource Post --simple` 命令生成资源时的页面文件)
+
+:::
+
+
 
 ## 表格行操作仅显示图标
 
@@ -62,7 +85,6 @@ Tables\Columns\TextColumn::make('user.full_name')
     ),
 ```
 
-
 ## 渲染 HTML
 
 ### 标签 `label()`
@@ -78,6 +100,7 @@ Tables\Components\TextColumn::make('name')
 ```
 
 ### 渲染内容
+
 #### `html()` 方法
 
 如果列的内容是 HTML，可以使用 `html()` 方法呈现它：
@@ -104,7 +127,7 @@ TextColumn::make('description')
     ```
 
 - 通过返回 `\Illuminate\Contracts\View\View` 实例
- 
+
     ```php
     use Filament\Tables;
     use Illuminate\Contracts\View\View;
@@ -115,8 +138,6 @@ TextColumn::make('description')
             ['state' => $state], // [!code ++]
         )) // [!code ++]
     ```
-
-
 
 ## 删除记录时删除附件
 
@@ -137,7 +158,6 @@ Actions\DeleteAction::make()
         }
     })
 ```
-
 
 ## 批量删除时过滤数据
 
