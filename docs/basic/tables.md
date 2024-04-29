@@ -43,12 +43,12 @@ php artisan filament:page --resource PostResource --type View ViewPost
 - `--resource` 参数值为对应页面所属资源
 - `--type` 参数值为对应页面的类型，类型包括
     - `Custom` 自定义页面
-    - `List` 列表页面
-    - `Create` 创建页面
-    - `Edit` 编辑页面
-    - `View` 详情页面
-    - `Relationship` 关联关系页面
-    - `Manage` 简单列表页(相当于使用 `php artisan make:filament-resource Post --simple` 命令生成资源时的页面文件)
+    - `ListRecords` 列表页面
+    - `CreateRecord` 创建页面
+    - `EditRecord` 编辑页面
+    - `ViewRecord` 详情页面
+    - `ManageRelatedRecords` 关联关系页面
+    - `ManageRecords` 简单列表页(相当于使用 `php artisan make:filament-resource Post --simple` 命令生成资源时的页面文件)
 
 :::
 
