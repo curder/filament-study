@@ -142,7 +142,7 @@ Forms\Components\TextInput::make('slug')
 
 ## 枚举类
 
-Filament 支持使用枚举类作为单选或下拉选项的选项，并且可以定义对应标签Label、颜色 Color和图标 Icon。
+Filament 支持使用枚举类作为单选或下拉选项的选项，并且可以定义对应标签 [HasLabel](https://github.com/filamentphp/filament/blob/3.x/packages/support/src/Contracts/HasLabel.php)、颜色 [HasColor](https://github.com/filamentphp/filament/blob/3.x/packages/support/src/Contracts/HasColor.php)、图标 [HasIcon](https://github.com/filamentphp/filament/blob/3.x/packages/support/src/Contracts/HasIcon.php) 和描述 [HasDescription](https://github.com/filamentphp/filament/blob/3.x/packages/support/src/Contracts/HasDescription.php)，更多详情可以查看[官方文档](https://filamentphp.com/docs/3.x/support/enums)。
 
 ::: code-group
 
