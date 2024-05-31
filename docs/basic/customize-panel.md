@@ -473,6 +473,93 @@ FilamentView::registerRenderHook(
 
 更多可用的钩子名称[可以在这里查看](https://filamentphp.com/docs/3.x/support/render-hooks#available-render-hooks)。
 
+### 添加刷新缓存按钮
+
+在管理页面头部用户菜单之前 `Filament\View\PanelsRenderHook::USER_MENU_BEFORE` 添加一个刷新缓存按钮，点击该按钮可以刷新缓存。
+
+![](./images/customize-panel/flush-query-cache.gif)
+
+使用命令 `php artisan make:livewire FlushQueryCache` 可以生成刷新缓存按钮的 Livewire 组件。
+
+::: code-group
+```php [App\Providers\Filament\AdminPanelProvider]
+use Filament\Panel;
+use Filament\View\PanelsRenderHook;
+use Illuminate\Support\Facades\Blade;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->renderHook(
+            PanelsRenderHook::USER_MENU_BEFORE,
+            fn (): string => $this->flushQueryCacheHook(),
+        );
+}
+
+public function flushQueryCacheHook(): string
+{
+  return auth()->user()->isAdmin() ? Blade::render('@livewire(\'flush-query-cache\')') : '';
+}
+```
+
+```php [App\Livewire\FlushQueryCache]
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Artisan;
+use Filament\Notifications\Notification;
+
+class FlushQueryCache extends Component
+{
+    public function flushCache(): void
+    {
+        Artisan::call('cache:clear');
+
+        Notification::make()
+            ->title(__('admin.notification.query_cache_cleared_success'))
+            ->duration(3000)
+            ->success()
+            ->send();
+    }
+
+    public function render(): View|string
+    {
+        return view('livewire.flush-query-cache');
+    }
+}
+```
+
+```php [resources/views/livewire/flush-query-cache.blade.php]
+<a href="javascript:void(0);"
+   x-data="{
+        active: false,
+        flushCache: function() {
+            this.active = true;
+            $wire.flushCache();
+        }
+   }"
+   x-init="$watch('active', (value) => value && setTimeout(() => active = false, 1200))"
+   @click="flushCache">
+
+    <x-filament::loading-indicator x-show="active" class="w-5 h-5 text-gray-400 dark:text-gray-500"/>
+
+    <x-filament::icon
+            class="w-5 h-5 text-gray-400 dark:text-gray-500"
+            x-show="!active"
+            icon="heroicon-c-arrow-path"
+            color="gray"
+            icon-size="lg"
+            :label="__('admin.notification.label')"
+    />
+</a>
+```
+:::
+
+
 ## 热加载
 
 在开发项目时经常需要根据修改刷新页面，此时配置热加载显得尤为重要。
