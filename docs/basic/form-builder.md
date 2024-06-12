@@ -481,3 +481,96 @@ Forms\Components\Grid::make(1)
         Forms\Components\TextInput::make('symbol'),
     ])
 ```
+
+## 使用假数据填充表单
+
+filament 中可以快速的填充假数据到表单。
+
+::: details 点击查看 gif 动画效果
+![](images/form-builder/fill-form-using-fake-data.gif)
+:::
+
+仅需要在资源类的 `Section` 中添加 `headerActions` 操作类，并编写假数据填充规则。
+
+```php
+<?php
+
+use Filament\Forms\Components\Actions\Action;
+
+public static function form(Form $form): Form
+{
+    return $form
+        ->schema([
+            Section::make()
+                ->key('basic')
+                ->schema([
+                      TextInput::make('name')
+                          ->required()
+                          ->reactive()
+                          ->afterStateUpdated(fn($state, callable $set) => $set('slug', Str::slug($state))),
+
+                      TextInput::make('slug')
+                          ->disabled()
+                          ->dehydrated()
+                          ->required()
+                          ->unique(Post::class, 'slug', fn($record) => $record),
+
+                      MarkdownEditor::make('body')
+                          ->required(),
+
+                      DatePicker::make('published_at')
+                          ->native(false)
+                          ->label('Published Date'),
+                ])
+                ->headerActions([
+                    Action::make('fillForm') // [!code focus] // [!code ++]
+                        ->label('Fill Form') // [!code focus] // [!code ++]
+                        ->icon('heroicon-o-sparkles') // [!code focus] // [!code ++]
+                        ->color('success') // [!code focus] // [!code ++]
+                        ->link() // [!code focus] // [!code ++]
+                        ->tooltip('Quickly fill form data') // [!code focus] // [!code ++]
+                        ->action(function (Get $get, Set $set, Page $livewire) { // [!code focus] // [!code ++]
+                            $set('name', fake()->sentence(3)); // [!code focus] // [!code ++]
+                            $set('slug', str($get('name'))->slug()); // [!code focus] // [!code ++]
+                            $set('body', fake()->paragraphs(2, 10)); // [!code focus] // [!code ++]
+                            $set('published_at', fake()->dateTimeBetween('-10 days', '+3 days')); // [!code focus] // [!code ++]
+                            $livewire->form->getState(); // [!code focus] // [!code ++]
+                        }), // [!code focus] // [!code ++]
+                ]),
+        ]);
+}
+```
+
+
+## 保存表单操作前添加确认提示
+
+重写对应方法可以添加 `requiresConfirmation()` 方法对保存表单时添加确认提示：
+
+::: details 点击查看 gif 动画效果
+![](images/form-builder/add-confirm-when-handle-form-save-action.gif)
+:::
+
+```php
+<?php
+
+namespace App\Filament\Resources\PostResource\Pages;
+
+use Filament\Resources\Pages\CreateRecord;
+
+class CreatePost extends CreateRecord
+{
+    protected function getCreateFormAction(): Action
+    {
+        return parent::getCreateFormAction()
+            ->submit(null) // [!code ++]
+            ->requiresConfirmation()// [!code ++]
+            ->modalHeading('保存')// [!code ++]
+            ->modalDescription('您确定要这样操作吗?')// [!code ++]
+            ->action(function () {// [!code ++]
+                $this->closeActionModal();// [!code ++]
+                $this->create();// [!code ++]
+            });// [!code ++]
+    }
+}
+```
+
