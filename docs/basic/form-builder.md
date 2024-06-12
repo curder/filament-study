@@ -490,7 +490,7 @@ filament 中可以快速的填充假数据到表单。
 ![](images/form-builder/fill-form-using-fake-data.gif)
 :::
 
-仅需要在资源类的 `Section` 中添加 `headerActions` 操作类，并编写假数据填充规则。
+仅需要在资源类的 `Section` 中添加 `headerActions` 操作类，并编写假数据填充规则，当然也可以在[将操作添加到自定义表单组件](https://filamentphp.com/docs/3.x/forms/actions#adding-an-action-to-a-custom-form-component)，具体可以查看官方文档。
 
 ```php
 <?php
