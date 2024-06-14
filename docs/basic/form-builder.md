@@ -574,3 +574,25 @@ class CreatePost extends CreateRecord
 }
 ```
 
+## 全选下拉列表中选项
+
+当有一个带有多选选项的下拉选择时，可以添加提示操作 `hintAction` 以轻松地一次选择所有选项。
+
+![](images/form-builder/select-all-hit-action.png)
+
+```php
+public static function form(Form $form): Form
+{
+    return $form
+        ->schema([
+            Select::make('user_id') // [!code ++]
+                ->label('User') // [!code ++]
+                ->multiple() // [!code ++]
+                ->options(User::pluck('name', 'id')) // [!code ++]
+                ->hintAction(fn(Select $component) => \Filament\Forms\Components\Actions\Action::make('Select all') // [!code ++]
+                    ->action(fn() => $component->state(User::pluck('id'))) // [!code ++]
+                ) // [!code ++]
+            ,
+        ]);
+}
+```
