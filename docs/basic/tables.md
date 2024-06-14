@@ -1,5 +1,61 @@
 # 表格
 
+## 自定义行样式 `recordClasses()`
+
+::: details 点击切换 gif 演示
+![](images/tables/record-classes.gif)
+:::
+
+通过 `recordClasses()` 方法可以自定义表格行的样式，比如下面是根据记录值将不同的样式应用于表行。
+
+::: code-group
+```php [PostResource]
+ public static function table(Table $table): Table
+    {
+        return $table
+            ->recordClasses(fn (Post $record) =>  match($record->published) { // [!code ++]
+                true => 'border-l-4 !border-l-danger-500 bg-danger-50 dark:bg-gray-800', // [!code ++]
+                default => null, // [!code ++]
+            }) // [!code ++]
+            ->columns([
+                TextColumn::make('name'),
+
+                ToggleColumn::make('published_at')
+                    ->onColor('danger')
+                    ->offColor('success')
+                    ->updateStateUsing(function ($record, $state) {
+                        $record->update(['published_at' => $state ? now(): null]);
+                    }),
+            ]);
+}
+```
+
+```php [Model]
+<?php
+
+// ...
+class Post extends Model
+{
+    // ...
+    public function cases(): array
+    {
+        return [
+            'published_at' => 'datetime',
+        ];
+    }
+
+    public function published(): Attribute
+    {
+        return Attribute::get(fn() => !is_null($this->published_at));
+    }
+}
+```
+:::
+
+::: tip **注意**
+由于我们自定义了一些 TailwindCss 样式，建议创建[自定义主题](customize-panel.md#自定义主题)来覆盖默认主题样式。
+:::
+
 ## 自定义表格点击行URL `recordUrl()`
 
 默认表格行点击的跳转地址是编辑页面，使用 `recordUrl()` 方法可以自定义表格点击行时跳转的 URL。
