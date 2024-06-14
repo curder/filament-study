@@ -56,6 +56,37 @@ class Post extends Model
 由于我们自定义了一些 TailwindCss 样式，建议创建[自定义主题](customize-panel.md#自定义主题)来覆盖默认主题样式。
 :::
 
+
+## 向表头列添加提示
+
+在服务提供者 `AdminPanelPorvider` 的 `boot` 启动方法中添加 `abbr` 宏：
+
+```php
+public function boot(): void
+{
+    \Filament\Tables\Columns\TextColumn::macro('abbr', function (?string $abbr = null, bool $asTooltip = false) {
+        $label = $this->getLabel();
+        $abbr = $abbr ?? $label;
+        $classes = $this->isSortable() ? 'cursor-pointer' : 'cursor-help';
+     
+        $attributes = $asTooltip ? 'x-tooltip.raw="'.$abbr.'" title=""' : 'title="'.$abbr.'"';
+     
+        return $this->label(new HtmlString("<abbr class=\"$classes\" $attributes>$label</abbr>"));
+    });
+}
+```
+
+在对应的资源类中添加引用：
+
+```php
+\Filament\Tables\Columns\TextColumn::make('price')
+  ->abbr('当前展示的是税前的金额', asTooltip: true) // [!code ++]
+  ->sortable(),
+```
+
+![](images/tables/abbr.png)
+
+
 ## 自定义表格点击行URL `recordUrl()`
 
 默认表格行点击的跳转地址是编辑页面，使用 `recordUrl()` 方法可以自定义表格点击行时跳转的 URL。
