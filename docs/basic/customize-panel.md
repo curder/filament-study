@@ -36,6 +36,57 @@ php artisan make:filament-theme admin
 
 :::
 
+
+## 热加载
+
+在开发项目时经常需要根据修改刷新页面，此时配置热加载显得尤为重要。
+
+1. 配置 `vite.config.js`
+
+   导入 `laravel-vite-plugin` 默认的刷新监听路径的同时添加额外的热加载目录。
+
+    ```js
+    import {defineConfig} from 'vite';
+    import laravel, {refreshPaths} from 'laravel-vite-plugin';
+    
+    export default defineConfig({
+        plugins: [
+            laravel({
+                input: ['resources/css/app.css', 'resources/js/app.js'],
+                // refresh: true,
+                refresh: [
+                    ...refreshPaths,
+                    'app/Livewire/**',
+                    'app/Filament/**',
+                ],
+            }),
+        ],
+    });
+    
+    ```
+
+2. 使用 `rederHook` 方法在管理页面注入 `resources/js/app.js`
+
+    ```php
+    use Filament\Panel;
+    use Illuminate\Support\Facades\Blade;
+     
+    public function panel(Panel $panel): Panel
+    {
+        return $panel
+            // ...
+            ->renderHook(
+                'panels::body.end',
+                fn (): string => $this->app->environment('local')
+                    ? Blade::render('@vite(\'resources/js/app.js\')')
+                    : ''
+            );
+    }
+    ```
+
+进行上面的配置后，比如修改 Filament 表单字段的后会及时刷新页面，方便开发查看修改的结果。
+
+
 ## 更改主题配色 `colors()`
 
 1. 通过 `color` 方法指定具体配色，它们默认来自 [tailwind 自定义颜色](https://tailwindcss.com/docs/customizing-colors)。
@@ -591,55 +642,6 @@ class FlushQueryCache extends Component
 ```
 :::
 
-
-## 热加载
-
-在开发项目时经常需要根据修改刷新页面，此时配置热加载显得尤为重要。
-
-1. 配置 `vite.config.js`
-
-   导入 `laravel-vite-plugin` 默认的刷新监听路径的同时添加额外的热加载目录。
-
-    ```js
-    import {defineConfig} from 'vite';
-    import laravel, {refreshPaths} from 'laravel-vite-plugin';
-    
-    export default defineConfig({
-        plugins: [
-            laravel({
-                input: ['resources/css/app.css', 'resources/js/app.js'],
-                // refresh: true,
-                refresh: [
-                    ...refreshPaths,
-                    'app/Livewire/**',
-                    'app/Filament/**',
-                ],
-            }),
-        ],
-    });
-    
-    ```
-
-2. 使用 `rederHook` 方法在管理页面注入 `resources/js/app.js`
-
-    ```php
-    use Filament\Panel;
-    use Illuminate\Support\Facades\Blade;
-     
-    public function panel(Panel $panel): Panel
-    {
-        return $panel
-            // ...
-            ->renderHook(
-                'panels::body.end',
-                fn (): string => $this->app->environment('local')
-                    ? Blade::render('@vite(\'resources/js/app.js\')')
-                    : ''
-            );
-    }
-    ```
-
-进行上面的配置后，比如修改 Filament 表单字段的后会及时刷新页面，方便开发查看修改的结果。
 
 ## 设置域名
 
