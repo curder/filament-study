@@ -596,3 +596,23 @@ public static function form(Form $form): Form
         ]);
 }
 ```
+
+## 修改文件上传预览文件的布局
+
+Filament 使用 [FilePond](https://pqina.nl/filepond/docs/api/instance/properties/#styles) 作为默认的文件上传插件，当需要上传多张图片/文件时，默认的布局是每张图片/每个文件单独占用一行的空间，可以通过下面的配置修改这种布局方式。
+
+```php
+return $form
+      ->schema([
+            Forms\Components\FileUpload::make('cover')
+                ->panelLayout('grid')  // [!code ++]
+      ]);
+```
+
+::: details 修改前
+![](images/form-builder/default-file-upload-panel-layout.png)
+:::
+
+::: details 修改后
+![](images/form-builder/using-grid-panel-layout-to-file-upload.png)
+:::
