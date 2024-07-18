@@ -37,6 +37,17 @@ php artisan make:filament-theme admin
 :::
 
 
+## 设置集群子菜单宽度
+
+默认情况下，集群子菜单的宽度为 `18rem`。当配置[自定义主题](#自定义主题)后，可以通过以下方式设置宽度：
+
+```css
+.fi-page-sub-navigation-sidebar.w-72 {
+   @apply w-48;
+}
+```
+
+
 ## 热加载
 
 在开发项目时经常需要根据修改刷新页面，此时配置热加载显得尤为重要。
