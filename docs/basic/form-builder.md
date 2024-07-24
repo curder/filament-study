@@ -576,7 +576,7 @@ class CreatePost extends CreateRecord
 
 ## 全选下拉列表中选项
 
-当有一个带有多选选项的下拉选择时，可以添加提示操作 `hintAction` 以轻松地一次选择所有选项。
+当有一个带有多选选项的下拉选择时，可以添加提示操作 `hintAction` 来轻松的一次选择所有选项。
 
 ![](images/form-builder/select-all-hit-action.png)
 
@@ -590,9 +590,37 @@ public static function form(Form $form): Form
                 ->multiple() // [!code ++]
                 ->options(User::pluck('name', 'id')) // [!code ++]
                 ->hintAction(fn(Select $component) => \Filament\Forms\Components\Actions\Action::make('Select all') // [!code ++]
-                    ->action(fn() => $component->state(User::pluck('id'))) // [!code ++]
+                    ->action(fn(Select $component) => $component->state(array_keys($component->getOptions()))) // [!code ++]
                 ) // [!code ++]
             ,
+        ]);
+}
+```
+
+也可以使用 `hintActions` 方法同时添加 "Remove all" 的操作。
+
+```php
+use Forms\Components\Select;
+use Filament\Forms\Components\Actions\Action;
+
+public static function form(Form $form): Form
+{
+    return $form
+        ->schema([
+                Select::make('user_id')
+                    ->label('User')
+                    ->multiple()
+                    ->options(User::pluck('name', 'id'))
+                    ->live() // [!code focus] // [!code ++]
+                    ->hintActions([ // [!code focus] // [!code ++]
+                        Action::make('Remove all') // [!code focus] // [!code ++]
+                            ->visible(fn(Select $component) => $component->getState() !== []) // [!code focus] // [!code ++]
+                            ->action(fn(Select $component) => $component->state([])), // [!code focus] // [!code ++]
+
+                        Action::make('Select all') // [!code focus] // [!code ++]
+                            ->visible(fn(Select $component) => count($component->getState()) < count($component->getOptions())) // [!code focus] // [!code ++]
+                            ->action(fn(Select $component) => $component->state(array_keys($component->getOptions()))), // [!code focus] // [!code ++]
+                    ]), // [!code focus]
         ]);
 }
 ```
