@@ -49,7 +49,7 @@ php artisan make:filament-theme admin
    @apply w-48;
 }
 ```
-A
+
 ## 添加背景图
 
 FilamentPHP 默认的背景图是白色。当配置[自定义主题](#自定义主题)后，可以通过下面的方式设置自定义背景图。
