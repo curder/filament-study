@@ -39,6 +39,22 @@ php artisan make:filament-theme admin
 使用自定义主题后，执行 `dev` 命令后，修改对应 `tailwind.css.js` 中 `content` 配置的文件后页面会自动刷新。
 :::
 
+## 设置边栏宽度
+
+默认情况下，边栏的宽度为 `20rem` 和折叠侧边栏宽度为 `4.5rem`。使用 `sidebarWidth()` 和 `collapsedSidebarWidth()` 方法来自定义设置宽度。
+
+```php
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+         ->sidebarWidth('16rem') // [!code ++]
+         ->collapsedSidebarWidth('9rem'); // [!code ++]
+}
+```
+
 
 ## 设置集群子菜单宽度
 
