@@ -13,6 +13,7 @@
 | [filament/spatie-laravel-translatable-plugin](https://github.com/filamentphp/spatie-laravel-translatable-plugin) | 字段翻译，基于[laravel-translatable](https://github.com/spatie/laravel-translatable)  |
 | [awcodes/filament-tiptap-editor](https://github.com/awcodes/filament-tiptap-editor)                              | 一款表单组件的富文本编辑器，基于 [tiptap](https://github.com/ueberdosis/tiptap)                |
 | [ryangjchandler/filament-navigation](https://github.com/ryangjchandler/filament-navigation)                      | 无限级导航管理                                                                        |
+| [codewithdennis/filament-select-tree](https://github.com/codewithdennis/filament-select-tree)                    | 多级选择树                                                                          |
 | [bezhansalleh/filament-shield](https://github.com/bezhansalleh/filament-shield)                                  | 后台权限管理插件，基于 [laravel-permission](https://github.com/spatie/laravel-permission) |
 | [solution-forest/filament-tree](https://github.com/solutionforest/filament-tree)                                 | 对无限极分类进行排序                                                                     |
 | [stechstudio/filament-impersonate](https://github.com/stechstudio/filament-impersonate)                          | 在后台模拟用户登录，可快速对功能/权限的测试                                                         |
@@ -20,3 +21,4 @@
 | [awcodes/shout](https://github.com/awcodes/shout)                                                                | 表单/详情页的占位符                                                                     |
 | [bezhansalleh/filament-exceptions](https://github.com/bezhansalleh/filament-exceptions)                          | 系统异常记录                                                                         |
 | [shuvroroy/filament-spatie-laravel-health](https://github.com/shuvroroy/filament-spatie-laravel-health)          | 基于[spatie/laravel-health](https://github.com/spatie/laravel-health)            |
+|
