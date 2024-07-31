@@ -20,5 +20,4 @@
 | [shuvroroy/filament-spatie-laravel-backup](https://github.com/shuvroroy/filament-spatie-laravel-backup)          | 数据库备份，基于[laravel-backup](https://github.com/spatie/laravel-backup)             |
 | [awcodes/shout](https://github.com/awcodes/shout)                                                                | 表单/详情页的占位符                                                                     |
 | [bezhansalleh/filament-exceptions](https://github.com/bezhansalleh/filament-exceptions)                          | 系统异常记录                                                                         |
-| [shuvroroy/filament-spatie-laravel-health](https://github.com/shuvroroy/filament-spatie-laravel-health)          | 基于[spatie/laravel-health](https://github.com/spatie/laravel-health)            |
-|
+| [shuvroroy/filament-spatie-laravel-health](https://github.com/shuvroroy/filament-spatie-laravel-health)          | 基于[spatie/laravel-health](https://github.com/spatie/laravel-health)            | |
