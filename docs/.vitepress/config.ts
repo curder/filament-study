@@ -51,10 +51,11 @@ function sidebarBasic() {
             items: [
                 {text: "定制面板 Panel Builder", link: "/basic/customize-panel"},
                 {text: "表单 Form Builder", link: "/basic/form-builder"},
-                {text: "表格 Tables", link: '/basic/tables'},
-                {text: "详情 Infolists", link: '/basic/infolists'},
-                {text: "操作 Actions", link: '/basic/actions'},
-                {text: '插件推荐 Plugins', link: "basic/recommended-plugins"},
+                {text: "表格 Tables", link: "/basic/tables"},
+                {text: "详情 Infolists", link: "/basic/infolists"},
+                {text: "操作 Actions", link: "/basic/actions"},
+                {text: "插件推荐 Plugins", link: "/basic/recommended-plugins"},
+                {text: "开源项目 Projects", link: "/basic/open-source-projects"},
             ]
         },
     ];
