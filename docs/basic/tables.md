@@ -56,6 +56,45 @@ class Post extends Model
 由于我们自定义了一些 TailwindCss 样式，建议创建[自定义主题](customize-panel.md#自定义主题)来覆盖默认主题样式。
 :::
 
+## 表格列上添加操作 `action()`
+
+:::details 点击切换 gif 演示
+![](images/tables/custom-action-for-table.gif)
+:::
+
+使用 `action()` 方法来添加自定义操作。
+
+```php
+public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                // ...
+                Tables\Columns\TextColumn::make('status')
+                    ->searchable()
+                    ->badge()
+                    ->alignCenter()
+                    ->action(
+                        Tables\Actions\Action::make('change_status')
+                            ->stickyModalHeader()
+                            ->modalHeading('Change user status')
+                            ->requiresConfirmation()
+                            ->fillForm(fn(User $record) => ['status' => $record->status])
+                            ->form([
+                                Forms\Components\ToggleButtons::make('status')
+                                    ->required()
+                                    ->inline()
+                                    ->options(UserStatus::class),
+                            ])
+                            ->action(function (Tables\Actions\Action $action, User $record, array $data) {
+                                $record->update($data);
+                            })
+                            ->modalWidth(MaxWidth::ExtraLarge)
+                            ->modalAlignment(Alignment::Start),
+                    ),
+            ]);
+    }
+```
 
 ## 向表头列添加提示
 
