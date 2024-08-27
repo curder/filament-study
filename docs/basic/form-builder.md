@@ -1,5 +1,35 @@
 # 表单
 
+## 左右布局
+
+在表单中需要左右布局，比如：左边是主布局，右边的是侧边栏的布局，可以使用下面的方式
+
+```php
+public static function form(Form $form): Form
+{
+    return $form
+        ->schema([
+            Section::make()
+                ->schema([
+                    // ...
+                ])
+                ->columnSpan(2), // [!code focus] // [!code ++]
+
+            Section::make()
+                ->schema([
+                    // ...
+                ])
+                ->columnSpan(1) // [!code focus] // [!code ++]
+        ])
+        ->columns(3);// [!code focus] // [!code ++]
+}
+```
+
+::: details 查看自定义布局效果 
+
+![](images/form-builder/custom-section-column.png)
+:::
+
 ## 保存/取消按钮操作Sticky
 
 当新增、编辑表单时，如果表单内容过多，可能会导致保存/取消按钮需要下拉很久才能看到，为此可以在对应的新增、编辑类中添加如下属性解决这个问题。
@@ -15,7 +45,9 @@ class EditPost extends EditRecord
 }
 ```
 
+::: details 查看效果
 ![](images/form-builder/sticky-actions.png)
+:::
 
 
 ## 字段宏 `macro`
