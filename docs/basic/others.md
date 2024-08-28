@@ -33,8 +33,11 @@ tasks:
     - cd: '{{release_path}}' // [!code ++]
     - run: '{{bin/php}} artisan filament:optimize' // [!code ++]
   yarn:run:prod:
-    - run: 'cd {{release_path}} && {{bin/yarn}} build'
+    - desc: 'Running yarn run prod to build assets'
+    - cd: '{{release_path}}'
+    - run: '{{bin/yarn}} build'
   php-fpm:reload:
+    - desc: 'Reloading php-fpm'
     - run: 'sudo /sbin/service {{php_fpm_service}} reload'
 
 after:
