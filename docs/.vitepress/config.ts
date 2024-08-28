@@ -55,6 +55,7 @@ function sidebarBasic() {
                 {text: "详情 Infolists", link: "/basic/infolists"},
                 {text: "操作 Actions", link: "/basic/actions"},
                 {text: "小组件 Widgets", link: "/basic/widgets"},
+                {text: "其他 Others", link: "/basic/others"},
                 {text: "插件推荐 Plugins", link: "/basic/recommended-plugins"},
                 {text: "开源项目 Projects", link: "/basic/open-source-projects"},
             ]
