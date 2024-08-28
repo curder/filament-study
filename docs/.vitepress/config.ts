@@ -49,7 +49,7 @@ function sidebarBasic() {
         {
             text: '',
             items: [
-                {text: "定制面板 Panel Builder", link: "/basic/customize-panel"},
+                {text: "面板 Panel Builder", link: "/basic/customize-panel"},
                 {text: "表单 Form Builder", link: "/basic/form-builder"},
                 {text: "表格 Tables", link: "/basic/tables"},
                 {text: "详情 Infolists", link: "/basic/infolists"},

@@ -1,4 +1,4 @@
-# 定制面板
+# 面板
 
 在 [`Filament`](https://filamentphp.com/docs) 中允许对管理面板进行一些自定义，比如更改主题配色、更改字体、更改界面的 Logo 等。
 
