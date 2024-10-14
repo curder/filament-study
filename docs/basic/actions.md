@@ -32,3 +32,72 @@ protected function getListeners(): array
 ```
 
 项目源代码[点击这里查看](https://github.com/curder/filament-widget-refresh-demo)。
+
+## 以多种形式重用 Action 类
+
+在 filament 中可以通过编写动作类来简化用户的输入，比如修改密码时需要输入新密码和重复密码的情况。
+
+
+![](images/actions/generate-password-action.gif)
+
+```php
+// app\Filament\Actions\GeneratePasswordAction.php
+
+<?php
+
+declare(strict_types=1);
+
+namespace App\Filament\Actions;
+
+use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Set;
+use Filament\Notifications\Notification;
+use Illuminate\Support\Str;
+
+/**
+ * 生成新密码
+ */
+class GeneratePasswordAction extends Action
+{
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->color('info')
+            ->icon('heroicon-o-key')
+            ->action(function (Set $set) {
+                $password = Str::password();
+
+                $set('password', $password); // 将新生成的密码赋值给新密码字段
+                $set('passwordConfirmation', $password); // 将新生成的密码赋值给确认密码字段
+
+                // 发送通知
+                Notification::make()
+                    ->success()
+                    ->title(__('Password successfully generated'))
+                    ->send();
+            });
+    }
+
+    public static function getDefaultName(): ?string
+    {
+        return 'generatePassword';
+    }
+}
+```
+
+在表单中可以这样使用：
+
+```php
+use App\Filament\Actions\GeneratePasswordAction;
+
+public function form(Form $form): Form
+{
+    return $form
+        ->schema([
+            $this->getPasswordFormComponent(), // [!code --]
+            $this->getPasswordFormComponent()->suffixActions([GeneratePasswordAction::make()]), // [!code ++]
+            $this->getPasswordConfirmationFormComponent(),
+        ]);
+}
+```
