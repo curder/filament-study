@@ -96,7 +96,7 @@ public function form(Form $form): Form
     return $form
         ->schema([
             $this->getPasswordFormComponent(), // [!code --]
-            $this->getPasswordFormComponent()->suffixActions([GeneratePasswordAction::make()]), // [!code ++]
+            $this->getPasswordFormComponent()->suffixAction(GeneratePasswordAction::make()), // [!code ++]
             $this->getPasswordConfirmationFormComponent(),
         ]);
 }
