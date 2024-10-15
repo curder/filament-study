@@ -19,6 +19,7 @@
 | [stechstudio/filament-impersonate](https://github.com/stechstudio/filament-impersonate)                          | 在后台模拟用户登录，可快速对功能/权限的测试                                                         |
 | [shuvroroy/filament-spatie-laravel-backup](https://github.com/shuvroroy/filament-spatie-laravel-backup)          | 数据库备份，基于[laravel-backup](https://github.com/spatie/laravel-backup)             |
 | [awcodes/shout](https://github.com/awcodes/shout)                                                                | 表单/详情页的占位符                                                                     |
+| [bezhanSalleh/filament-language-switch](https://github.com/bezhanSalleh/filament-language-switch)                | 语言切换插件                                                                         |
 | [bezhansalleh/filament-exceptions](https://github.com/bezhansalleh/filament-exceptions)                          | 系统异常记录                                                                         |
-| [shuvroroy/filament-spatie-laravel-health](https://github.com/shuvroroy/filament-spatie-laravel-health)          | 基于[spatie/laravel-health](https://github.com/spatie/laravel-health)            | |
-| [CodeWithDennis/filament-simple-alert](https://github.com/CodeWithDennis/filament-simple-alert)                  | 通过提供清晰简洁的通知来增强用户体验。                                                            | |
+| [shuvroroy/filament-spatie-laravel-health](https://github.com/shuvroroy/filament-spatie-laravel-health)          | 基于[spatie/laravel-health](https://github.com/spatie/laravel-health)            |
+| [CodeWithDennis/filament-simple-alert](https://github.com/CodeWithDennis/filament-simple-alert)                  | 通过提供清晰简洁的通知来增强用户体验。                                                            |
