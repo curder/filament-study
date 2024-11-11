@@ -21,6 +21,6 @@
 | [awcodes/shout](https://github.com/awcodes/shout)                                                                | 表单/详情页的占位符                                                                                 |
 | [bezhanSalleh/filament-language-switch](https://github.com/bezhanSalleh/filament-language-switch)                | 语言切换插件，如果需要对应国家svg请参考[这个仓库](https://github.com/OnTheGoSystems/SVG-flags-language-switcher) |
 | [bezhansalleh/filament-exceptions](https://github.com/bezhansalleh/filament-exceptions)                          | 系统异常记录查看                                                                                   |
-| [filipfonal/filament-log-manager](https://github.com/filipfonal/filament-log-manager)                            | 预览、下载和删除 Laravel 日志文件。 ｜                                                                   |
+| [filipfonal/filament-log-manager](https://github.com/filipfonal/filament-log-manager)                            | 预览、下载和删除 Laravel 日志文件。                                                                     |
 | [shuvroroy/filament-spatie-laravel-health](https://github.com/shuvroroy/filament-spatie-laravel-health)          | 基于[spatie/laravel-health](https://github.com/spatie/laravel-health)                        |
 | [CodeWithDennis/filament-simple-alert](https://github.com/CodeWithDennis/filament-simple-alert)                  | 通过提供清晰简洁的通知来增强用户体验。                                                                        |
