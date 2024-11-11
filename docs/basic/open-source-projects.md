@@ -9,3 +9,4 @@
 | [PeJota](https://github.com/mazer-dev/pejota)                                     | 独立创业者和自由职业者 ERP 和 CRM                    | —                                                    |
 | [freek.dev](https://github.com/spatie/freek.dev/tree/main/app/Filament/Resources) | freek.dev博客                              | —                                                    | 
 | [Spatie.be](https://github.com/spatie/spatie.be/tree/main/app/Filament)           | spatie.be                                | —                                                    |
+| [thedevdojo/wave](https://github.com/thedevdojo/wave)                             | 更快的交付sass产品                              | [Demo 地址](https://devdojo.com/wave/demo)             |

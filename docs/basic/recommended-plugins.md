@@ -23,5 +23,4 @@
 | [bezhansalleh/filament-exceptions](https://github.com/bezhansalleh/filament-exceptions)                          | 系统异常记录查看                                                                                   |
 | [filipfonal/filament-log-manager](https://github.com/filipfonal/filament-log-manager)                            | 预览、下载和删除 Laravel 日志文件。 ｜                                                                   |
 | [shuvroroy/filament-spatie-laravel-health](https://github.com/shuvroroy/filament-spatie-laravel-health)          | 基于[spatie/laravel-health](https://github.com/spatie/laravel-health)                        |
-| [CodeWithDennis/filament-simple-alert](https://github.com/CodeWithDennis/filament-simple-alert)                  | 通过提供清晰简洁的通知来增强用户体验。                                                                        |                                                                                           
-| [thedevdojo/wave](https://github.com/thedevdojo/wave)                                                            | 更快的交付sass产品，[Demo 地址](https://devdojo.com/wave/demo)                                       |
+| [CodeWithDennis/filament-simple-alert](https://github.com/CodeWithDennis/filament-simple-alert)                  | 通过提供清晰简洁的通知来增强用户体验。                                                                        |
