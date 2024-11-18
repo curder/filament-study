@@ -602,7 +602,7 @@ public static function form(Form $form): Form
                             $set('body', fake()->paragraphs(2, 10)); // [!code focus] // [!code ++]
                             $set('published_at', fake()->dateTimeBetween('-10 days', '+3 days')); // [!code focus] // [!code ++]
                             $livewire->form->getState(); // [!code focus] // [!code ++]
-                        }), // [!code focus] // [!code ++]
+                        })->visible(fn () => app()->environment('local')), // [!code focus] // [!code ++]
                 ]),
         ]);
 }
