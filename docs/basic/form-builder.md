@@ -275,6 +275,41 @@ public static function table(Table $table): Table
 ![](images/form-builder/enum-status-labe-icon-and-color.png)
 
 
+## 字段添加加载指示器
+
+在处理实时更新的 Filament 表单时，特别是在网络连接较慢的情况下，添加加载指示器可以显著提升用户体验。
+
+```php
+use Illuminate\Support\HtmlString;
+use Illuminate\Support\Facades\Blade;
+
+return $form
+  ->schema([
+    Select::make('user_id')
+      ->native(false) // [!code focus]
+      ->hint(new HtmlString( // [!code focus]
+        Blade::render('<x-filament::loading-indicator class="h-5 w-5" wire:loading wire:target="data.user_id" />') // [!code focus]
+      )) // [!code focus]
+      ->live() // [!code focus]
+    // ...
+  ]);
+```
+
+::: info 代码解析
+1. `->native(false)`: 禁用浏览器原生日期选择器，使用 Filament 的日期选择器组件
+2. `->hint()`: 使用提示区域来放置加载指示器
+3. `new HtmlString()`: 将 HTML 内容转换为可渲染的字符串
+4. `Blade::render()`: 渲染 Blade 组件
+5. `<x-filament::loading-indicator>`: Filament 内置的加载指示器组件
+6. `wire:loading`: Livewire 指令，指示何时显示加载动画
+7. `wire:target="data.date"`: 指定触发加载指示器的目标字段
+8. `->live()`: 启用字段的实时更新功能
+:::
+
+![](./images/form-builder/adding-loading-indicator-to-filament-form-field.gif)
+
+通过简单几行代码就能为 Filament 表单字段添加加载指示器，提供更好的用户体验。这个解决方案既优雅又实用，特别适合需要实时反馈的场景。
+
 ## 在标签中渲染 HTML
 
 在字段 `label()` 中需要渲染 HTML（例如链接）的话可以返回 `HtmlString` 对象以便将 HTML 添加到字段标签。
