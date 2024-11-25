@@ -139,6 +139,97 @@ class AdminPanelServiceProvider extends PanelProvider
               ->toArray();
       }),
   ```
+  
+## 禁用创建另一个
+
+在使用 Filament 开发后台管理系统时，当创建一个资源时，默认会在创建页面或弹出层中显示两个按钮：
+
+- `Create` (创建)
+- `Create & Create Another` (创建并创建另一个)
+
+![](images/form-builder/create-actions.png)
+
+有时可能只需要一个简单的创建按钮，不需要 "创建并创建另一个" 这个功能。
+
+### 全局禁用 {#global-disable}
+
+全局禁用可以通过两种方式实现：
+
+  - 使用 `disableCreateAnother()` 方法
+  - 使用 `hidden()` 方法隐藏
+
+  选择其中一种即可。
+
+  ```php
+  use Filament\Resources\Pages\CreateRecord;
+  use Filament\Actions\Action;
+
+  # 选择下面的一种方法即可
+  ## 1. 使用 `disableCreateAnother()` 方法
+  CreateRecord::disableCreateAnother();
+
+  ## 2. 使用 `hidden()` 方法隐藏
+  Action::configureUsing(function (Action $action) {
+      $action->hidden($action->getName() === 'createAnother');
+  });
+  ```
+
+使用 `createAnother()` 方法可以在弹出层中禁用。
+
+  ```php{5}
+  use Filament\Actions\CreateAction;
+
+  # 使用 `createAnother()` 方法禁用
+  CreateAction::configureUsing(function (CreateAction $action): void {
+      $action->createAnother(false);
+  });
+  ```
+
+
+### 特定页面禁用
+
+相比全局禁用，特定页面禁用更加灵活，可以针对某个页面进行禁用。
+
+重写 `canCreateAnother()` 方法，返回 `false` 即可禁用。
+
+```php
+use Filament\Resources\Pages\CreateRecord;
+
+class CreatePost extends CreateRecord
+{
+    public static function canCreateAnother(): bool
+    {
+        return false;
+    }
+}
+```
+
+
+在弹出层 CreateAction 中，可以通过 `createAnother(false)` 方法禁用。
+
+```php
+use Filament\Resources\Pages\ListRecords;
+use Filament\Actions\CreateAction;
+
+class ListPosts extends ListRecords
+{
+    protected function getHeaderActions(): array
+    {
+        return [
+            CreateAction::make()
+                ->createAnother(false) // 禁用 Create Another
+                ->modalWidth('lg'), // 可选：设置弹出层宽度
+        ];
+    }
+}
+```
+
+::: info 注意 
+- 全局禁用会影响所有资源的创建操作
+-  在特定页面禁用只会影响该页面
+-  弹出层中的禁用需要在每个弹出层操作中单独设置
+-  关联表单中的禁用仅影响特定的关联创建操作
+:::
 
 ## 禁用表单中的字段 `disabledOn()`
 
