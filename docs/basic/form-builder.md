@@ -783,6 +783,52 @@ public static function form(Form $form): Form
 }
 ```
 
+或者将上面的逻辑提取到 `AppServiceProvider` 的 `register` 方法中给 `Select` 组件添加 `selectAllHintActions` 宏。
+
+:::code-group
+
+```php [定义 selectAllHintActions 宏]
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Actions\Action;
+
+Select::macro('selectAllHintActions', function () {
+    /** @var Filament\Forms\Components\Select $this */
+    return $this->hintActions([
+        Action::make('select_all')
+            ->label(__('Select All'))
+            ->visible(fn(Select $component) => count($component->getState()) < count($component->getOptions()))
+            ->action(fn (Select $component) => $component->state(
+                array_keys($component->getOptions())
+            )),
+        Action::make('remove_all')
+            ->label(__('Remove All'))
+            ->visible(fn(Select $component) => $component->getState() !== [])
+            ->action(
+                fn (\Filament\Forms\Set $set, Select $component) => $set($component->getName(), []),
+            ),
+    ]);
+});
+```
+
+```php [使用 selectAllHintActions 宏]
+use Forms\Components\Select;
+use Filament\Forms\Components\Actions\Action;
+
+public static function form(Form $form): Form
+{
+    return $form
+        ->schema([
+                Select::make('user_id')
+                    ->label('User')
+                    ->multiple()
+                    ->options(User::pluck('name', 'id'))
+                    ->live() // [!code focus] // [!code ++]
+                    ->selectAllHintActions() // [!code focus] // [!code ++]
+        ]);
+}
+```
+:::
+
 ## 修改文件上传预览文件的布局
 
 Filament 使用 [FilePond](https://pqina.nl/filepond/docs/api/instance/properties/#styles) 作为默认的文件上传插件，当需要上传多张图片/文件时，默认的布局是每张图片/每个文件单独占用一行的空间，可以通过下面的配置修改这种布局方式。
