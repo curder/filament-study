@@ -848,3 +848,49 @@ return $form
 ::: details 修改后
 ![](images/form-builder/using-grid-panel-layout-to-file-upload.png)
 :::
+
+
+## 自定义表单事件
+
+Filament 提供了一些表单事件，表单可以分派和监听事件，从而实现前端和后端的通信，这些事件可以在组件视图中分派，然后由组件的类监听。
+
+下面以一个常见的例子来说明自定义表单事件的用法。
+
+![](images/form-builder/custom-form-event.gif)
+
+::: code-group
+
+```php [Form 组件]
+use Filament\Forms\Components\Textarea;
+
+Textarea::make('host_issue')
+    ->helperText(view('filament.tables.assets.host_issue_helper_text'))
+    ->registerListeners([ // [!code ++]
+        'replace::host-issue' => // [!code ++]
+            function (Component $component, string $statePath): void { // [!code ++]
+                $component->state($statePath); // [!code ++]
+            }, // [!code ++]
+        ], // [!code ++]
+    ]), // [!code ++]
+```
+
+```php [自定义视图]
+// resources/views/filament/tables/assets/host_issue_helper_text.blade.php
+<span class="flex space-x-0.5">
+    <x-filament::badge 
+        wire:click="dispatchFormEvent('replace::host-issue', 'Black screen')" // [!code ++]
+        class="cursor-pointer">
+        Black screen
+    </x-filament::badge>
+    <x-filament::badge 
+        wire:click="dispatchFormEvent('replace::host-issue', 'Another reason')" // [!code ++]
+        class="cursor-pointer">
+        Another reason
+    </x-filament::badge>
+</span>
+```
+:::
+
+- 在表单组件中使用 `registerListeners()` 方法注册自定义事件。
+
+- 在视图中使用 `dispatchFormEvent()` 触发表单自定义事件。
