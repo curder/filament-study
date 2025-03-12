@@ -12,9 +12,9 @@
     "docs:preview": "vitepress preview docs"
   },
   "engines": {
-    "node": ">=18.0"
+    "node": ">=20.0"
   },
   "devDependencies": {
-    "vitepress": "^1.0.2"
+    "vitepress": "^1.6.0"
   }
 }
