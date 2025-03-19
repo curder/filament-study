@@ -52,7 +52,7 @@ config:
 
   # MD012/no-multiple-blanks - Multiple consecutive blank lines.
   MD012:
-    maximum: 2
+    maximum: 1
 
   # MD013/line-length - Line length.
   MD013:

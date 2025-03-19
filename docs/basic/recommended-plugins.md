@@ -8,7 +8,6 @@
 
 下面表格中整理的是项目中常用的一些插件：
 
-
 | 插件名                                                                                                              | 备注                                                                                         |
 |------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------|
 | [filament/spatie-laravel-settings-plugin](https://github.com/filamentphp/spatie-laravel-settings-plugin)         | 用于自定义项目配置，基于 [laravel-settings](https://github.com/spatie/laravel-settings)                |
