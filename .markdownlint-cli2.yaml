@@ -1,0 +1,7 @@
+# See: https://github.com/DavidAnson/markdownlint/blob/main/schema/.markdownlint.yaml
+default: true
+MD013:
+  line_length: 200
+MD012:
+  # Consecutive blank lines
+  maximum: 1
