@@ -265,6 +265,30 @@ public function panel(Panel $panel): Panel
 }
 ```
 
+## 更改导航激活图标
+
+通过配置资源(Resource)、页面(Page)或集群(Cluster) 的 `getActiveNavigationIcon` 方法可以自定义导航激活图标。
+
+加入使用的是 Heroicon 字体集，通过配置一个Trait来实现它：
+
+```php
+<?php
+
+namespace App\Traits;
+
+trait HasActiveIcon
+{
+    public static function getActiveNavigationIcon(): ?string
+    {
+        return str(self::getNavigationIcon())
+            ->replace('heroicon-o-', 'heroicon-s-')
+            ->toString();
+    }
+}
+```
+
+然后可以在资源(Resource)、页面(Page)或集群(Cluster)类中使用它。
+
 ## 开启 spa 模式 `spa()`
 
 SPA 模式利用 [Livewire 的 wire:navigate](https://livewire.laravel.com/docs/navigate) 功能，使服务器渲染的面板感觉像单页面应用程序，页面加载之间的延迟更短，并且针对较长的请求提供加载栏。要在面板上启用 SPA 模式，可以使用 `spa()` 方法
