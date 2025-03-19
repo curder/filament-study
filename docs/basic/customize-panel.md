@@ -5,7 +5,6 @@
 它们的修改都是在 `app/Providers/Filament/AdminPanelProvider.php` 文件的 `panel` 方法中。
 
 
-
 ## 自定义主题
 
 Filament 允许通过编译自定义样式表来替换默认样式表，从而更改用于呈现 UI 的 CSS。此自定义样式表称为“主题”。
