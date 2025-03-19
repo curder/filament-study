@@ -37,8 +37,7 @@ protected function getListeners(): array
 
 在 filament 中可以通过编写动作类来简化用户的输入，比如修改密码时需要输入新密码和重复密码的情况。
 
-
-![](images/actions/generate-password-action.gif)
+![Generate password action image](images/actions/generate-password-action.gif)
 
 ```php
 // app\Filament\Actions\GeneratePasswordAction.php

@@ -14,7 +14,6 @@ Infolists\Components\TextEntry::make('name')
     ->label(fn() => new HtmlString('<span style="color: red;">Name</span>'))
 ```
 
-
 ### 渲染内容
 
 #### `html()` 方法

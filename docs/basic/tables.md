@@ -3,7 +3,7 @@
 ## 自定义行样式 `recordClasses()`
 
 ::: details 点击切换 gif 演示
-![](images/tables/record-classes.gif)
+![recordClasses images](images/tables/record-classes.gif)
 :::
 
 通过 `recordClasses()` 方法可以自定义表格行的样式，比如下面是根据记录值将不同的样式应用于表行。
@@ -50,6 +50,7 @@ class Post extends Model
     }
 }
 ```
+
 :::
 
 ::: tip **注意**
@@ -59,7 +60,7 @@ class Post extends Model
 ## 表格列上添加操作 `action()`
 
 :::details 点击切换 gif 演示
-![](images/tables/custom-action-for-table.gif)
+![custom action for table](images/tables/custom-action-for-table.gif)
 :::
 
 使用 `action()` 方法来添加自定义操作。
@@ -123,8 +124,7 @@ public function boot(): void
   ->sortable(),
 ```
 
-![](images/tables/abbr.png)
-
+![abbr tips image](images/tables/abbr.png)
 
 ## 自定义表格点击行URL `recordUrl()`
 
@@ -175,10 +175,7 @@ php artisan filament:page --resource PostResource --type View ViewPost
     - `ViewRecord` 详情页面
     - `ManageRelatedRecords` 关联关系页面
     - `ManageRecords` 简单列表页(相当于使用 `php artisan make:filament-resource Post --simple` 命令生成资源时的页面文件)
-
 :::
-
-
 
 ## 表格行操作仅显示图标
 

@@ -25,9 +25,9 @@ public static function form(Form $form): Form
 }
 ```
 
-::: details 查看自定义布局效果 
+::: details 查看自定义布局效果
 
-![](images/form-builder/custom-section-column.png)
+![custom section column](images/form-builder/custom-section-column.png)
 :::
 
 ## 保存/取消按钮操作Sticky
@@ -46,16 +46,14 @@ class EditPost extends EditRecord
 ```
 
 ::: details 查看效果
-![](images/form-builder/sticky-actions.png)
+![sticky actions](images/form-builder/sticky-actions.png)
 :::
-
 
 ## 字段宏 `macro`
 
 如果在项目中使用的是 [filament/spatie-laravel-translatable-plugin](https://github.com/filamentphp/spatie-laravel-translatable-plugin)，可能想向用户展示哪些字段是可翻译的。
 
-
-在对应字段上使用 `hint()` 和 ` hintIcon()` 方法向用户显示哪些字段是可翻译的。
+在对应字段上使用 `hint()` 和 `hintIcon()` 方法向用户显示哪些字段是可翻译的。
 
 ```php
 <?php
@@ -72,7 +70,7 @@ TextInput::make('name')
     ->translatable(); // [!code ++]
 ```
 
-![](images/form-builder/form-field-macro.png)
+![form field macro](images/form-builder/form-field-macro.png)
 
 如果项目中有很多类似的翻译需求，也可以在 `Filament\Forms\Components\Field` 类上创建一个 `translatable` 宏。
 
@@ -147,7 +145,7 @@ class AdminPanelServiceProvider extends PanelProvider
 - `Create` (创建)
 - `Create & Create Another` (创建并创建另一个)
 
-![](images/form-builder/create-actions.png)
+![create actions](images/form-builder/create-actions.png)
 
 有时可能只需要一个简单的创建按钮，不需要 "创建并创建另一个" 这个功能。
 
@@ -155,8 +153,8 @@ class AdminPanelServiceProvider extends PanelProvider
 
 全局禁用可以通过两种方式实现：
 
-  - 使用 `disableCreateAnother()` 方法
-  - 使用 `hidden()` 方法隐藏
+- 使用 `disableCreateAnother()` 方法
+- 使用 `hidden()` 方法隐藏
 
   选择其中一种即可。
 
@@ -176,7 +174,7 @@ class AdminPanelServiceProvider extends PanelProvider
 
 使用 `createAnother()` 方法可以在弹出层中禁用。
 
-  ```php{5}
+  ```php {5}
   use Filament\Actions\CreateAction;
 
   # 使用 `createAnother()` 方法禁用
@@ -184,7 +182,6 @@ class AdminPanelServiceProvider extends PanelProvider
       $action->createAnother(false);
   });
   ```
-
 
 ### 特定页面禁用
 
@@ -203,7 +200,6 @@ class CreatePost extends CreateRecord
     }
 }
 ```
-
 
 在弹出层 CreateAction 中，可以通过 `createAnother(false)` 方法禁用。
 
@@ -224,11 +220,12 @@ class ListPosts extends ListRecords
 }
 ```
 
-::: info 注意 
+::: info 注意
+
 - 全局禁用会影响所有资源的创建操作
--  在特定页面禁用只会影响该页面
--  弹出层中的禁用需要在每个弹出层操作中单独设置
--  关联表单中的禁用仅影响特定的关联创建操作
+- 在特定页面禁用只会影响该页面
+- 弹出层中的禁用需要在每个弹出层操作中单独设置
+- 关联表单中的禁用仅影响特定的关联创建操作
 :::
 
 ## 禁用表单中的字段 `disabledOn()`
@@ -236,6 +233,7 @@ class ListPosts extends ListRecords
 如果需要在新增 `create` 或编辑 `edit` 表单中禁用某个字段时可以使用 `disabledOn()` 方法。
 
 ::: code-group
+
 ```php [编辑时禁用]
 public static function form(Form $form): Form
 {
@@ -261,11 +259,14 @@ Forms\Components\TextInput::make('slug')
     ->disabledOn(['create', 'edit']) // [!code ++] 
     ->required(),
 ```
+
 :::
 
 ## 枚举类
 
+<!-- markdownlint-disable MD013 -->
 Filament 支持使用枚举类作为单选或下拉选项的选项，并且可以定义对应标签 [HasLabel](https://github.com/filamentphp/filament/blob/3.x/packages/support/src/Contracts/HasLabel.php)、颜色 [HasColor](https://github.com/filamentphp/filament/blob/3.x/packages/support/src/Contracts/HasColor.php)、图标 [HasIcon](https://github.com/filamentphp/filament/blob/3.x/packages/support/src/Contracts/HasIcon.php) 和描述 [HasDescription](https://github.com/filamentphp/filament/blob/3.x/packages/support/src/Contracts/HasDescription.php)，更多详情可以查看[官方文档](https://filamentphp.com/docs/3.x/support/enums)。
+<!-- markdownlint-enable MD013 -->
 
 ::: code-group
 
@@ -361,10 +362,10 @@ public static function table(Table $table): Table
     ]);
 }
 ```
+
 :::
 
-![](images/form-builder/enum-status-labe-icon-and-color.png)
-
+![enum status label icon and color](images/form-builder/enum-status-labe-icon-and-color.png)
 
 ## 字段添加加载指示器
 
@@ -387,6 +388,7 @@ return $form
 ```
 
 ::: info 代码解析
+
 1. `->native(false)`: 禁用浏览器原生日期选择器，使用 Filament 的日期选择器组件
 2. `->hint()`: 使用提示区域来放置加载指示器
 3. `new HtmlString()`: 将 HTML 内容转换为可渲染的字符串
@@ -397,7 +399,7 @@ return $form
 8. `->live()`: 启用字段的实时更新功能
 :::
 
-![](./images/form-builder/adding-loading-indicator-to-filament-form-field.gif)
+![adding loading indicator to filament form field](./images/form-builder/adding-loading-indicator-to-filament-form-field.gif)
 
 通过简单几行代码就能为 Filament 表单字段添加加载指示器，提供更好的用户体验。这个解决方案既优雅又实用，特别适合需要实时反馈的场景。
 
@@ -413,13 +415,13 @@ Forms\Components\Checkbox::make('accept')
     ->required()
 ```
 
-![](images/form-builder/render-html-in-label.png)
+![render html in label](images/form-builder/render-html-in-label.png)
 
 ## 下拉选项中渲染 HTML `allowHtml()`
 
 Filament 默认的 Select 组件通过 `choice.js` 支持渲染带有 HTML 的选项。
 
-> [!TIP] 提示 
+> [!TIP] 提示
 > 使用 `allowHtml()` 需要保证渲染的选项数据是安全的，否则可能带来 XSS 攻击。
 
 ### 简单用法
@@ -515,12 +517,13 @@ class User extends Authenticatable
     }
 }
 ```
+
 :::
 
 经过上面的定义后可以看到下拉组件的选项被修改为自定义的布局。
 
 ::: details 切换查看下拉效果
-![](images/form-builder/allow-html-in-select-option-labels.png)
+![allow html in select option labels](images/form-builder/allow-html-in-select-option-labels.png)
 :::
 
 ## 编辑表单中的唯一记录
@@ -558,8 +561,8 @@ Forms\Components\Select::make('roles')
 
 在处理密码字段时，编辑密码字段和创建时密码字段的要求是不一样的，比如更新用户数据。
 
-
 ::: code-group
+
 ```php [密码字段]
 use Filament\Forms\Components\TextInput;
  
@@ -576,7 +579,6 @@ TextInput::make('password')
     ->password()
     ->dehydrateStateUsing(fn ($state) => Hash::make($state))
 ```
-
 
 ```php [如果字段为空则不覆盖现有密码]
 use Filament\Forms\Components\TextInput;
@@ -603,8 +605,8 @@ TextInput::make('password')
     // 编辑页面当前字段非必填
     ->required(fn (string $operation): bool => $operation === 'create') // [!code ++]
 ```
-:::
 
+:::
 
 ## 将表单数据存储到 JSON 列 `statePath()`
 
@@ -645,10 +647,12 @@ Forms\Components\Grid::make(1)
 filament 中可以快速的填充假数据到表单。
 
 ::: details 点击查看 gif 动画效果
-![](images/form-builder/fill-form-using-fake-data.gif)
+![fill form using fake data](images/form-builder/fill-form-using-fake-data.gif)
 :::
 
+<!-- markdownlint-disable MD013 -->
 仅需要在资源类的 `Section` 中添加 `headerActions` 操作类，并编写假数据填充规则，当然也可以在[将操作添加到自定义表单组件](https://filamentphp.com/docs/3.x/forms/actions#adding-an-action-to-a-custom-form-component)，具体可以查看官方文档。
+<!-- markdownlint-enable MD013 -->
 
 ```php
 <?php
@@ -699,13 +703,12 @@ public static function form(Form $form): Form
 }
 ```
 
-
 ## 保存表单操作前添加确认提示
 
 重写对应方法可以添加 `requiresConfirmation()` 方法对保存表单时添加确认提示：
 
 ::: details 点击查看 gif 动画效果
-![](images/form-builder/add-confirm-when-handle-form-save-action.gif)
+![add confirm when handle form save action](images/form-builder/add-confirm-when-handle-form-save-action.gif)
 :::
 
 ```php
@@ -736,7 +739,7 @@ class CreatePost extends CreateRecord
 
 当有一个带有多选选项的下拉选择时，可以添加提示操作 `hintAction` 来轻松的一次选择所有选项。
 
-![](images/form-builder/select-all-hit-action.png)
+![select all hit action](images/form-builder/select-all-hit-action.png)
 
 ```php
 public static function form(Form $form): Form
@@ -827,11 +830,14 @@ public static function form(Form $form): Form
         ]);
 }
 ```
+
 :::
 
 ## 修改文件上传预览文件的布局
 
+<!-- markdownlint-disable MD013 -->
 Filament 使用 [FilePond](https://pqina.nl/filepond/docs/api/instance/properties/#styles) 作为默认的文件上传插件，当需要上传多张图片/文件时，默认的布局是每张图片/每个文件单独占用一行的空间，可以通过下面的配置修改这种布局方式。
+<!-- markdownlint-enable MD013 -->
 
 ```php
 return $form
@@ -842,13 +848,12 @@ return $form
 ```
 
 ::: details 修改前
-![](images/form-builder/default-file-upload-panel-layout.png)
+![default file upload panel layout](images/form-builder/default-file-upload-panel-layout.png)
 :::
 
 ::: details 修改后
-![](images/form-builder/using-grid-panel-layout-to-file-upload.png)
+![using grid panel layout to file uplaod](images/form-builder/using-grid-panel-layout-to-file-upload.png)
 :::
-
 
 ## 自定义表单事件
 
@@ -856,7 +861,7 @@ Filament 提供了一些表单事件，表单可以分派和监听事件，从�
 
 下面以一个常见的例子来说明自定义表单事件的用法。
 
-![](images/form-builder/custom-form-event.gif)
+![custom form event](images/form-builder/custom-form-event.gif)
 
 ::: code-group
 
@@ -891,6 +896,6 @@ Textarea::make('host_issue')
 ```
 :::
 
-- 在表单组件中使用 `registerListeners()` 方法注册自定义事件。
+1. 在表单组件中使用 `registerListeners()` 方法注册自定义事件。
 
-- 在视图中使用 `dispatchFormEvent()` 触发表单自定义事件。
+2. 在视图中使用 `dispatchFormEvent()` 触发表单自定义事件。
