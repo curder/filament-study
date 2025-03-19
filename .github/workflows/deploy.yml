@@ -39,6 +39,7 @@ jobs:
       - uses: DavidAnson/markdownlint-cli2-action@v19
         with:
           fix: true
+          config: .markdownlint-cli2.yaml
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
