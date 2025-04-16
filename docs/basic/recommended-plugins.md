@@ -10,6 +10,7 @@
 
 | 插件名                                                                                                              | 备注                                                                                         |
 |------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------|
+| [tomatophp/awesome](https://github.com/tomatophp/awesome)                                                        | 包括用户管理、语言管理、插件管理、媒体管理等常用的插件                                                                |
 | [filament/spatie-laravel-settings-plugin](https://github.com/filamentphp/spatie-laravel-settings-plugin)         | 用于自定义项目配置，基于 [laravel-settings](https://github.com/spatie/laravel-settings)                |
 | [filament/spatie-laravel-tags-plugin](https://github.com/filamentphp/spatie-laravel-tags-plugin)                 | 资源标签，基于 [laravel-tags](https://github.com/spatie/laravel-tags)                             |
 | [filament/spatie-laravel-translatable-plugin](https://github.com/filamentphp/spatie-laravel-translatable-plugin) | 字段翻译，基于[laravel-translatable](https://github.com/spatie/laravel-translatable)              |
