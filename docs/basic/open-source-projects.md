@@ -14,3 +14,4 @@
 | [thedevdojo/wave](https://github.com/thedevdojo/wave)                             | 更快的交付sass产品                              | [Demo 地址](https://devdojo.com/wave/demo)                          |
 | [relaticle/relaticle](https://github.com/relaticle/relaticle)                     | 下一代开源CRM平台                               | [relaticle.com](https://relaticle.com/)                           |
 | [benjamincrozat/blog-v5](https://github.com/benjamincrozat/blog-v5)               | 开源博客                                     | [preview.benjamincrozat.com](https://preview.benjamincrozat.com/) |
+| [canyongbs/advisingapp](https://github.com/canyongbs/advisingapp)                 | Canyon 的 Advice App GBS 是一款人工智能驱动的对话助手   | [advising.app](https://advising.app/)                             |
