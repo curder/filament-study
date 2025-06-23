@@ -83,6 +83,7 @@ function sidebarV4() {
             text: "自定义样式 Styling",
             items: [
                 {text: "概述", link: "/v4/styling/overview"},
+                {text: "CSS 钩子", link: "/v4/styling/css-hooks"},
             ]
         }
     ];
