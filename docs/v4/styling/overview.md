@@ -164,3 +164,19 @@ $panel->font(
 ```
 
 
+
+
+## 在视图中使用 Tailwind CSS 类 {#custom-classes-in-views}
+
+即使 Filament 使用 Tailwind CSS 来编译框架，它也没有设置为自动扫描在项目中使用的任何 Tailwind 类，因此这些类不会包含在编译的 CSS 中。
+
+要在项目中使用 Tailwind CSS 类，您需要设置一个[自定义主题](#custom-theme)来自定义面板中的已编译 CSS 文件。在主题的 `theme.css` 文件中，会发现两行：
+
+```css
+@source '../../../../app/Filament';
+@source '../../../../resources/views/filament';
+```
+
+这 2 行告诉 Tailwind 扫描 `app/Filament` 和 `resources/views/filament` 目录，查找在项目中使用的任何 Tailwind 类。
+
+可以在此处添加任何其他要扫描 Tailwind 类的目录。
