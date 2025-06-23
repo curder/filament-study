@@ -33,7 +33,7 @@ export default defineConfig({
         nav: nav(),
         sidebar: {
             "/v3": sidebarV3(),
-            "/v4.x": sidebarV4(),
+            "/v4": sidebarV4(),
         }
     }
 });
@@ -74,10 +74,16 @@ function sidebarV3() {
 function sidebarV4() {
     return [
         {
-            text: '',
+            text: "",
             items: [
                 {text: "安装 Installation", link: "/v4/installation"},
             ]
         },
+        {
+            text: "自定义样式 Styling",
+            items: [
+                {text: "概述", link: "/v4/styling/overview"},
+            ]
+        }
     ];
 }

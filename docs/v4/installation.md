@@ -10,7 +10,7 @@ Filament 需要依赖以下版本的软件才能运行：
 - Laravel v11.28 +
 - Tailwind CSS v4.0 +
 
-## 安装 Panel Builder
+## 安装 Panel Builder {#installation-panel-builder}
 
 由于 Filament v4 处于测试阶段，因此在安装任何软件包之前，需要将 `composer.json` 文件中的最低稳定性设置为测试版。
 
@@ -34,7 +34,7 @@ composer require filament/filament:"^4.0"
 php artisan filament:install --panels
 ```
 
-## 创建新用户
+## 创建新用户 {#make-filament-user}
 
 使用以下命令创建新的用户登陆帐户：
 
@@ -44,9 +44,9 @@ php artisan make:filament-user
 
 在 Web 浏览器中打开 /admin，登录并开始构建的应用。
 
-## 生产环境
+## 生产环境 {#production-environment}
 
-### 1. 允许用户访问面板
+### 1. 允许用户访问面板 {#user-can-access-panel}
 
 默认情况下，所有用户模型都可以本地访问 Filament。
 
@@ -74,7 +74,7 @@ class User extends Authenticatable implements FilamentUser
 }
 ```
 
-### 2. 优化面板性能
+### 2. 优化面板性能 {#optimize-panel-performance}
 
 要针对生产环境优化 Filament，应在部署脚本中运行以下命令：
 
@@ -90,7 +90,7 @@ php artisan filament:optimize
 php artisan filament:optimize-clear
 ```
 
-### 3. 优化 Laravel 应用
+### 3. 优化 Laravel 应用 {#optimize-laravel-app}
 
 还应该考虑通过在部署脚本种优化 Laravel 应用程序。
 
