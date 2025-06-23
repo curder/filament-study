@@ -36,7 +36,7 @@ php artisan make:filament-theme admin
 
 
 
-## 自定义配色 {#custom-colors}
+## 自定义配色 `colors()` {#custom-colors}
 
 1. 通过 `colors` 方法指定具体配色，它们默认来自 [tailwind 自定义颜色](https://tailwindcss.com/docs/customizing-colors)。
 
@@ -125,8 +125,7 @@ public function panel(Panel $panel): Panel
 }
 ```
 
-
-## 自定义字体 {#custom-fonts}
+## 自定义字体 `font()` {#custom-fonts}
 
 默认情况下，Filament 使用的是 [Inter](https://fonts.google.com/specimen/Inter) 字体。可以使用 `font()` 方法更改默认设置。
 
@@ -163,9 +162,6 @@ $panel->font(
 )
 ```
 
-
-
-
 ## 在视图中使用 Tailwind CSS 类 {#custom-classes-in-views}
 
 即使 Filament 使用 Tailwind CSS 来编译框架，它也没有设置为自动扫描在项目中使用的任何 Tailwind 类，因此这些类不会包含在编译的 CSS 中。
@@ -181,7 +177,7 @@ $panel->font(
 
 可以在此处添加任何其他要扫描 Tailwind 类的目录。
 
-## 禁用黑暗模式 {#disabling-dark-mode}
+## 禁用黑暗模式 `darkMode()` {#disabling-dark-mode}
 
 要禁用黑暗模式切换，可以使用 `darkMode()` 方法进行配置。
 
@@ -196,7 +192,7 @@ public function panel(Panel $panel): Panel
 }
 ```
 
-## 更改默认主题模式 {#changing-the-default-theme-mode}
+## 更改默认主题模式 `defaultThemeMode()` {#changing-the-default-theme-mode}
 
 默认情况下，Filament 使用用户的系统主题作为默认模式。
 
@@ -215,5 +211,64 @@ public function panel(Panel $panel): Panel
     return $panel
         // ...
         ->defaultThemeMode(ThemeMode::Light);
+}
+```
+
+## 添加Logo `brandLogo()` {#adding-a-logo}
+
+默认情况下，Filament 使用应用名称来呈现简单的基于文本的徽标。
+
+如果想简单地更改徽标中使用的文本，可以使用 `brandName()` 方法：
+
+```php
+use Filament\Panel;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->brandName('Filament');
+}
+```
+
+要呈现图像，可以将 URL 传递给 `brandLogo()` 方法：
+
+```php
+use Filament\Panel;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->brandLogo(asset('images/logo.svg'));
+}
+```
+
+或者，可以直接将 HTML 传递给 `brandLogo()` 方法以呈现内联 SVG 元素，例如：
+
+```php
+use Filament\Panel;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->brandLogo(fn () => view('filament.admin.logo'));
+}
+```
+
+如果黑暗模式下的Logo需要特殊处理，可以使用 `darkModeBrandLogo()` 方法。
+
+使用 `brandLogoHeight()` 法自定义呈现徽标的高度：
+
+```php
+use Filament\Panel;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->brandLogo(fn () => view('filament.admin.logo'))
+        ->brandLogoHeight('2rem');
 }
 ```
