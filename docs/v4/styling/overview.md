@@ -195,3 +195,25 @@ public function panel(Panel $panel): Panel
         ->darkMode(false);
 }
 ```
+
+## 更改默认主题模式 {#changing-the-default-theme-mode}
+
+默认情况下，Filament 使用用户的系统主题作为默认模式。
+
+例如，如果用户的计算机处于黑暗模式，Filament 将默认使用黑暗模式。
+
+如果用户更改计算机模式，Filament 中的系统模式是被动的。
+
+如果想改变默认模式以强制亮模式或暗模式，使用 `defaultThemeMode()` 方法，传递 `ThemeMode::Light` 或 `ThemeMode::Dark`。
+
+```php
+use Filament\Panel;
+use Filament\Enums\ThemeMode;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->defaultThemeMode(ThemeMode::Light);
+}
+```
