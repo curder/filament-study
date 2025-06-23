@@ -272,3 +272,18 @@ public function panel(Panel $panel): Panel
         ->brandLogoHeight('2rem');
 }
 ```
+
+## 自定义 favicon `favicon()` {#customizing-the-favicon}
+
+要添加一个自定义的 `favicon`，可以使用 `favicon()` 方法，将图标文件的 URL 传递给它。
+
+```php
+use Filament\Panel;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->favicon(asset('images/favicon.png'));
+}
+```
