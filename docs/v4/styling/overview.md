@@ -180,3 +180,18 @@ $panel->font(
 这 2 行告诉 Tailwind 扫描 `app/Filament` 和 `resources/views/filament` 目录，查找在项目中使用的任何 Tailwind 类。
 
 可以在此处添加任何其他要扫描 Tailwind 类的目录。
+
+## 禁用黑暗模式 {#disabling-dark-mode}
+
+要禁用黑暗模式切换，可以使用 `darkMode()` 方法进行配置。
+
+```php
+use Filament\Panel;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->darkMode(false);
+}
+```
