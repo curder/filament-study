@@ -86,7 +86,7 @@ FilamentPHP 默认的背景图是白色。当配置[自定义主题](#自定义�
 
 ## 更改主题配色 `colors()`
 
-1. 通过 `color` 方法指定具体配色，它们默认来自 [tailwind 自定义颜色](https://tailwindcss.com/docs/customizing-colors)。
+1. 通过 `colors` 方法指定具体配色，它们默认来自 [tailwind 自定义颜色](https://tailwindcss.com/docs/customizing-colors)。
 
     ```php
     use Filament\Panel;
