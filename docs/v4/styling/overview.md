@@ -124,3 +124,43 @@ public function panel(Panel $panel): Panel
        ]);
 }
 ```
+
+
+## 自定义字体 {#custom-fonts}
+
+默认情况下，Filament 使用的是 [Inter](https://fonts.google.com/specimen/Inter) 字体。可以使用 `font()` 方法更改默认设置。
+
+```php
+use Filament\Panel;
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->font('JetBrains Mono');
+}
+```
+
+所有 [Google 字体](https://fonts.google.com/) 都可以使用。
+
+默认使用 [Bunny Fonts CDN](https://fonts.bunny.net/) 用于提供字体。也可以使用 `font()` 方法的 `provider` 参数自定义字体提供者。
+
+```php
+use Filament\FontProviders\GoogleFontProvider;
+
+$panel->font('Inter', provider: GoogleFontProvider::class)
+```
+
+或者，使用 `LocalFontProvider` 从本地样式表提供字体：
+
+```php
+use Filament\FontProviders\LocalFontProvider;
+
+$panel->font(
+    'Inter',
+    url: asset('css/fonts.css'),
+    provider: LocalFontProvider::class,
+)
+```
+
+
