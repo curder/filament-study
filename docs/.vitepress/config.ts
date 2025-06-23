@@ -1,4 +1,4 @@
-import {defineConfig} from 'vitepress'
+import {DefaultTheme, defineConfig} from 'vitepress'
 
 export default defineConfig({
     lang: "zh-CN",
@@ -33,14 +33,22 @@ export default defineConfig({
         nav: nav(),
         sidebar: {
             "/v3": sidebarV3(),
+            "/v4.x": sidebarV4(),
         }
     }
 });
 
 
-function nav() {
+function nav(): DefaultTheme.NavItem[] {
     return [
-        {text: "v3.x", link: "/v3/customize-panel", activeMatch: "/v3/"},
+        {text: "安装", link: "/v4/installation", activeMatch: "/v4/installation"},
+        {
+            text: "",
+            items: [
+                {text: "v4.x", link: "/v4/installation", activeMatch: "/v4/"},
+                {text: "v3.x", link: "/v3/customize-panel", activeMatch: "/v3/"},
+            ]
+        },
     ];
 }
 
@@ -58,6 +66,17 @@ function sidebarV3() {
                 {text: "其他 Others", link: "/v3/others"},
                 {text: "插件推荐 Plugins", link: "/v3/recommended-plugins"},
                 {text: "开源项目 Projects", link: "/v3/open-source-projects"},
+            ]
+        },
+    ];
+}
+
+function sidebarV4() {
+    return [
+        {
+            text: '',
+            items: [
+                {text: "安装 Installation", link: "/v4/installation"},
             ]
         },
     ];
