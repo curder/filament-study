@@ -6,7 +6,7 @@
 
 ::: code-group
 
-```bash [优化命令]
+```shell [优化命令]
 php artisan filament:optimize
 ```
 

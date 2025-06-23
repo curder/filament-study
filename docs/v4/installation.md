@@ -99,4 +99,3 @@ php artisan optimize
 ```
 
 这将缓存配置文件、事件、路由和视图。
-

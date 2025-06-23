@@ -162,7 +162,7 @@ public static function table(Table $table): Table
 
 如果不存在对应的页面可以通过 `make:filament-page` 或者 `filament:page` 命令创建，比如使用下面的命令创建详情页面：
 
-```bash
+```shell
 php artisan filament:page --resource PostResource --type View ViewPost
 ```
 

@@ -9,7 +9,7 @@ php artisan make:filament-resource UserResource -G -S
 
 ## 自定义
 
-```bash
+```shell
 # 创建自定义表单字段
 php artisan make:form-field ColorPicker
 
