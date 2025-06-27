@@ -77,6 +77,7 @@ function sidebarV4() {
             text: "",
             items: [
                 {text: "安装 Installation", link: "/v4/installation"},
+                {text: "面板 Panel Builder", link: "/v4/panel-builder"},
             ]
         },
         {
