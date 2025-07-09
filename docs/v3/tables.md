@@ -1,5 +1,99 @@
 # 表格
 
+## 单元格图标动画 `extraAttributes()`
+
+::: details 点击切换 gif 演示
+![extraAttributes images](images/tables/using-extra-attributes-set-custom-icon-style.gif)
+:::
+
+使用 `extraAttributes()` 方法可以为表格单元格添加额外的 HTML 属性，比如下面的示例中为表格单元格添加了一个图标动画。
+
+::: code-group
+```php :line-numbers [CompanyResource.php]
+public static function table(Table $table): Table
+{
+    return $table
+        ->columns([  
+            TextColumn::make('status') //[!code ++]
+                ->extraAttributes(fn(CompanyStatus $state): array => ['x-data-status' => $state->value,]) //[!code ++]
+                ->badge(), //[!code ++]
+        ])
+        //...
+        ;
+}
+```
+
+```php [Enum]
+<?php
+
+namespace App\Enums;
+
+use Filament\Support\Colors\Color;
+use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasIcon;
+use Filament\Support\Contracts\HasLabel;
+
+enum CompanyStatus: string implements HasLabel, HasIcon, HasColor
+{
+    case Pending = 'pending';
+    case Active = 'active';
+
+    public function getLabel(): string
+    {
+        return match ($this) {
+            self::Pending => 'Pending',
+            self::Active => 'Active',
+        };
+    }
+
+    public function getIcon(): ?string
+    {
+        return match($this) {
+            self::Pending => 'heroicon-o-clock',
+            self::Active => 'heroicon-o-check-circle',
+        };
+    }
+
+    public function getColor(): string|array|null
+    {
+        return match ($this) {
+            self::Pending => Color::Gray,
+            self::Active => Color::Green,
+        };
+    }
+}
+
+```
+
+```php [Model]
+<?php
+
+namespace App\Models;
+
+use App\Enums\CompanyStatus;
+use Illuminate\Database\Eloquent\Model;
+
+class Company extends Model
+{
+    public function casts(): array
+    {
+        return [
+            'status' => CompanyStatus::class, // [!code ++]
+        ];
+    }
+}
+
+```
+
+```css [admin.css]
+[x-data-status="pending"] svg {
+  @apply animate-spin;
+}
+```
+:::
+
+
+
 ## 自定义行样式 `recordClasses()`
 
 ::: details 点击切换 gif 演示
