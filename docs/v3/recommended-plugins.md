@@ -27,3 +27,4 @@
 | [filipfonal/filament-log-manager](https://github.com/filipfonal/filament-log-manager)                            | 预览、下载和删除 Laravel 日志文件。                                                                     |
 | [shuvroroy/filament-spatie-laravel-health](https://github.com/shuvroroy/filament-spatie-laravel-health)          | 基于[spatie/laravel-health](https://github.com/spatie/laravel-health)                        |
 | [CodeWithDennis/filament-simple-alert](https://github.com/CodeWithDennis/filament-simple-alert)                  | 通过提供清晰简洁的通知来增强用户体验。                                                                        |
+| [MarcelWeidum/filament-expiration-notice](https://github.com/MarcelWeidum/filament-expiration-notice)            | 自定义“页面过期” Livewire 消息为 Filament 弹窗。                                                        |
