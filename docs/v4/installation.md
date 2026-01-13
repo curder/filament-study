@@ -1,30 +1,12 @@
 # 安装
 
-::: warning ⚠️ 请注意️
-当前 Filament V4 版本处于测试阶段，并不稳定，在测试期间，版本可能会引入突破性的更改。
-:::
-
 Filament 需要依赖以下版本的软件才能运行：
 
 - PHP 8.2 +
 - Laravel v11.28 +
-- Tailwind CSS v4.0 +
+- Tailwind CSS v4.1 +
 
 ## 安装 Panel Builder {#installation-panel-builder}
-
-由于 Filament v4 处于测试阶段，因此在安装任何软件包之前，需要将 `composer.json` 文件中的最低稳定性设置为测试版。
-
-```shell
-composer config minimum-stability beta
-```
-
-或者修改 `composer.json` 中的 `minimum-stability`：
-
-```json
-{
-  "minimum-stability": "beta"
-}
-```
 
 通过在 Laravel 项目目录中运行以下命令来安装 Panel Builder:
 
