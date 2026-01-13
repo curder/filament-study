@@ -1,6 +1,6 @@
-# 操作
+# 操作 {#actions}
 
-## 发送自定义事件
+## 发送自定义事件 {#dispatch-custom-events}
 
 在 Livewire 中使用 `$dispatch()` 方法来发送自定义时间，达到不同组件通讯的目的。
 
@@ -33,7 +33,7 @@ protected function getListeners(): array
 
 项目源代码[点击这里查看](https://github.com/curder/filament-widget-refresh-demo)。
 
-## 以多种形式重用 Action 类
+## 以多种形式重用 Action 类 {#reuse-action-classes-in-multiple-ways}
 
 在 filament 中可以通过编写动作类来简化用户的输入，比如修改密码时需要输入新密码和重复密码的情况。
 

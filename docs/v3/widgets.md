@@ -1,6 +1,6 @@
-# 小组件 Widgets
+# 小组件 Widgets {#widgets}
 
-## 添加过滤参数 `tableFilters`
+## 添加过滤参数 `tableFilters` {#add-filter-parameters-tablefilters}
 
 生成URL时添加过滤条件。
 

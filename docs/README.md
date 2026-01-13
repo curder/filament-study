@@ -1,11 +1,11 @@
 
-# Filament PHP
+# Filament PHP {#filament-php}
 
 [FilamentPHP](https://filamentphp.com/docs/) 是一个用于 [Laravel](https://laravel.com/docs) 的开源工具集，旨在帮助开发者快速构建现代化的管理面板和后台接口。
 
 其设计重点在于简单性和可扩展性，使得开发者能够快速构建功能丰富的后台管理系统。
 
-## 主要特点
+## 主要特点 {#main-features}
 
 1. 易于使用
 

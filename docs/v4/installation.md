@@ -1,4 +1,4 @@
-# 安装
+# 安装 {#installation}
 
 Filament 需要依赖以下版本的软件才能运行：
 

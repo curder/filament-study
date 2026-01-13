@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD013 -->
 
-# 插件推荐
+# 插件推荐 {#recommended-plugins}
 
 [Filament 插件市场](https://filamentphp.com/plugins)收集了许多插件，在项目中使用插件可以简化开发过程。
 

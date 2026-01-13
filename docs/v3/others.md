@@ -1,6 +1,6 @@
-# 其他
+# 其他 {#others}
 
-## 线上优化
+## 线上优化 {#optimization}
 
 为了[优化 Filament](https://filamentphp.com/docs/panels/installation#optimizing-filament-for-production) 以用于生产环境，应该在部署脚本中运行以下命令开启图标缓存：
 

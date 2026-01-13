@@ -1,6 +1,6 @@
-# 表单
+# 表单 {#form-builder}
 
-## 左右布局
+## 左右布局 {#side-by-side-layout}
 
 在表单中需要左右布局，比如：左边是主布局，右边的是侧边栏的布局，可以使用下面的方式
 
@@ -30,7 +30,7 @@ public static function form(Form $form): Form
 ![custom section column](images/form-builder/custom-section-column.png)
 :::
 
-## 保存/取消按钮操作Sticky
+## 保存/取消按钮操作Sticky {#sticky-form-actions}
 
 当新增、编辑表单时，如果表单内容过多，可能会导致保存/取消按钮需要下拉很久才能看到，为此可以在对应的新增、编辑类中添加如下属性解决这个问题。
 
@@ -49,7 +49,7 @@ class EditPost extends EditRecord
 ![sticky actions](images/form-builder/sticky-actions.png)
 :::
 
-## 字段宏 `macro`
+## 字段宏 `macro` {#field-macro}
 
 如果在项目中使用的是 [filament/spatie-laravel-translatable-plugin](https://github.com/filamentphp/spatie-laravel-translatable-plugin)，可能想向用户展示哪些字段是可翻译的。
 
@@ -94,7 +94,7 @@ class AdminPanelServiceProvider extends PanelProvider
 }
 ```
 
-## 自定义选择搜索逻辑 `getSearchResultsUsing()`
+## 自定义选择搜索逻辑 `getSearchResultsUsing()` {#custom-select-search-logic}
 
 使用 `getSearchResultsUsing()` 方法自定义“选择”下拉列表以搜索所需的任何自定义逻辑。
 
@@ -138,7 +138,7 @@ class AdminPanelServiceProvider extends PanelProvider
       }),
   ```
   
-## 禁用创建另一个
+## 禁用创建另一个 {#disable-create-another}
 
 在使用 Filament 开发后台管理系统时，当创建一个资源时，默认会在创建页面或弹出层中显示两个按钮：
 
@@ -183,7 +183,7 @@ class AdminPanelServiceProvider extends PanelProvider
   });
   ```
 
-### 特定页面禁用
+### 特定页面禁用 {#disable-on-specific-page}
 
 相比全局禁用，特定页面禁用更加灵活，可以针对某个页面进行禁用。
 
@@ -228,7 +228,7 @@ class ListPosts extends ListRecords
 - 关联表单中的禁用仅影响特定的关联创建操作
 :::
 
-## 禁用表单中的字段 `disabledOn()`
+## 禁用表单中的字段 `disabledOn()` {#disable-field-in-form}
 
 如果需要在新增 `create` 或编辑 `edit` 表单中禁用某个字段时可以使用 `disabledOn()` 方法。
 
@@ -262,7 +262,7 @@ Forms\Components\TextInput::make('slug')
 
 :::
 
-## 枚举类
+## 枚举类 {#enum-as-select-options}
 
 <!-- markdownlint-disable MD013 -->
 Filament 支持使用枚举类作为单选或下拉选项的选项，并且可以定义对应标签 [HasLabel](https://github.com/filamentphp/filament/blob/3.x/packages/support/src/Contracts/HasLabel.php)、颜色 [HasColor](https://github.com/filamentphp/filament/blob/3.x/packages/support/src/Contracts/HasColor.php)、图标 [HasIcon](https://github.com/filamentphp/filament/blob/3.x/packages/support/src/Contracts/HasIcon.php) 和描述 [HasDescription](https://github.com/filamentphp/filament/blob/3.x/packages/support/src/Contracts/HasDescription.php)，更多详情可以查看[官方文档](https://filamentphp.com/docs/3.x/support/enums)。
@@ -367,7 +367,7 @@ public static function table(Table $table): Table
 
 ![enum status label icon and color](images/form-builder/enum-status-labe-icon-and-color.png)
 
-## 字段添加加载指示器
+## 字段添加加载指示器 {#adding-loading-indicator-to-form-field}
 
 在处理实时更新的 Filament 表单时，特别是在网络连接较慢的情况下，添加加载指示器可以显著提升用户体验。
 
@@ -403,7 +403,7 @@ return $form
 
 通过简单几行代码就能为 Filament 表单字段添加加载指示器，提供更好的用户体验。这个解决方案既优雅又实用，特别适合需要实时反馈的场景。
 
-## 在标签中渲染 HTML
+## 在标签中渲染 HTML {#render-html-in-label}
 
 在字段 `label()` 中需要渲染 HTML（例如链接）的话可以返回 `HtmlString` 对象以便将 HTML 添加到字段标签。
 
@@ -417,14 +417,14 @@ Forms\Components\Checkbox::make('accept')
 
 ![render html in label](images/form-builder/render-html-in-label.png)
 
-## 下拉选项中渲染 HTML `allowHtml()`
+## 下拉选项中渲染 HTML `allowHtml()` {#allow-html-in-select-options}
 
 Filament 默认的 Select 组件通过 `choice.js` 支持渲染带有 HTML 的选项。
 
 > [!TIP] 提示
 > 使用 `allowHtml()` 需要保证渲染的选项数据是安全的，否则可能带来 XSS 攻击。
 
-### 简单用法
+### 简单用法 {#simple-example}
 
 通过给选项标签添加HTML标签，可以在下拉选项选择时看到不同的选项文字颜色不同。
 
@@ -442,7 +442,7 @@ Forms\Components\Select::make('technology')
   ->allowHtml(),
 ```
 
-### 自定义选项布局
+### 自定义选项布局 {#custom-option-layout}
 
 ::: code-group
 
@@ -526,7 +526,7 @@ class User extends Authenticatable
 ![allow html in select option labels](images/form-builder/allow-html-in-select-option-labels.png)
 :::
 
-## 编辑表单中的唯一记录
+## 编辑表单中的唯一记录 {#unique-record-in-edit-form}
 
 在编辑表单中，如果需要确保表单中只有一个记录，可以使用 `->unique()` 方法。
 
@@ -539,7 +539,7 @@ TextInput::make('name')
     ->unique(ignoreRecord: true), // [!code ++]
 ```
 
-## 关联关系自定义选项显示 `getOptionLabelFromRecordUsing()`
+## 关联关系自定义选项显示 `getOptionLabelFromRecordUsing()` {#relationship-custom-option-label}
 
 当在选择菜单或过滤器中使用关系并且该模型是可翻译的时，以下是获取可翻译属性的方法：
 
@@ -557,7 +557,7 @@ Forms\Components\Select::make('roles')
 
 更多详情可以[查看这个 issue](https://github.com/filamentphp/filament/issues/11872#issuecomment-2002574212)。
 
-## 密码字段加密和更新处理
+## 密码字段加密和更新处理 {#password-field-handling}
 
 在处理密码字段时，编辑密码字段和创建时密码字段的要求是不一样的，比如更新用户数据。
 
@@ -608,7 +608,7 @@ TextInput::make('password')
 
 :::
 
-## 将表单数据存储到 JSON 列 `statePath()`
+## 将表单数据存储到 JSON 列 `statePath()` {#store-form-data-in-json-column}
 
 在字段名使用'点'表示法将数据存储到 json 列。下面的示例中，货币代码、名称和符号将存储在货币列中：
 
@@ -642,7 +642,7 @@ Forms\Components\Grid::make(1)
     ])
 ```
 
-## 使用假数据填充表单
+## 使用假数据填充表单 {#fill-form-using-fake-data}
 
 filament 中可以快速的填充假数据到表单。
 
@@ -703,7 +703,7 @@ public static function form(Form $form): Form
 }
 ```
 
-## 保存表单操作前添加确认提示
+## 保存表单操作前添加确认提示 {#add-confirmation-before-save-form-action}
 
 重写对应方法可以添加 `requiresConfirmation()` 方法对保存表单时添加确认提示：
 
@@ -735,7 +735,7 @@ class CreatePost extends CreateRecord
 }
 ```
 
-## 全选下拉列表中选项
+## 全选下拉列表中选项 {#select-all-options-in-select}
 
 当有一个带有多选选项的下拉选择时，可以添加提示操作 `hintAction` 来轻松的一次选择所有选项。
 
@@ -833,7 +833,7 @@ public static function form(Form $form): Form
 
 :::
 
-## 修改文件上传预览文件的布局
+## 修改文件上传预览文件的布局 {#customize-file-upload-panel-layout}
 
 <!-- markdownlint-disable MD013 -->
 Filament 使用 [FilePond](https://pqina.nl/filepond/docs/api/instance/properties/#styles) 作为默认的文件上传插件，当需要上传多张图片/文件时，默认的布局是每张图片/每个文件单独占用一行的空间，可以通过下面的配置修改这种布局方式。
@@ -855,7 +855,7 @@ return $form
 ![using grid panel layout to file uplaod](images/form-builder/using-grid-panel-layout-to-file-upload.png)
 :::
 
-## 自定义表单事件
+## 自定义表单事件 {#custom-form-events}
 
 Filament 提供了一些表单事件，表单可以分派和监听事件，从而实现前端和后端的通信，这些事件可以在组件视图中分派，然后由组件的类监听。
 
