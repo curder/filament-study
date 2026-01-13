@@ -34,8 +34,6 @@ php artisan make:filament-theme admin
 请参考命令查看需要注册的确切文件名，它们可能不是 `admin/theme.css`。
 :::
 
-
-
 ## 自定义配色 `colors()` {#custom-colors}
 
 1. 通过 `colors` 方法指定具体配色，它们默认来自 [tailwind 自定义颜色](https://tailwindcss.com/docs/customizing-colors)。

@@ -114,8 +114,6 @@ class Company extends Model
 ```
 :::
 
-
-
 ## 自定义行样式 `recordClasses()` {#custom-row-styles}
 
 ::: details 点击切换 gif 演示

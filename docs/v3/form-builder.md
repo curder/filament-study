@@ -539,7 +539,7 @@ TextInput::make('name')
     ->unique(ignoreRecord: true), // [!code ++]
 ```
 
-## 关联关系自定义选项显示 `getOptionLabelFromRecordUsing()` {#relationship-custom-option-label}
+## 关联关系自定义选项显示`getOptionLabelFromRecordUsing()`{#relationship-custom-option-label}
 
 当在选择菜单或过滤器中使用关系并且该模型是可翻译的时，以下是获取可翻译属性的方法：
 

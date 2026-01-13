@@ -18,7 +18,6 @@ Filament 是一个基于 Laravel 的管理面板框架，结合 Livewire 和 Alp
 
 ## 定义侧边栏样式 {#custom-sidebar-styles}
 
-
 ```css
 .fi-sidebar {
     @apply bg-[#fafafa] dark:bg-[#000];
@@ -30,7 +29,6 @@ Filament 是一个基于 Laravel 的管理面板框架，结合 Livewire 和 Alp
 ## 调整按钮样式 {#custom-button-styles}
 
 若想为 Filament 中的按钮添加圆角效果，可以使用以下 CSS：
-
 
 ```css
 .fi-btn {

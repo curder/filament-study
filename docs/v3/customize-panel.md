@@ -57,7 +57,7 @@ public function panel(Panel $panel): Panel
 
 ## 设置集群子菜单宽度 {#set-cluster-submenu-width}
 
-默认情况下，集群子菜单的宽度为 `18rem`。当配置[自定义主题](#自定义主题)后，可以通过以下方式设置宽度：
+默认情况下，集群子菜单的宽度为 `18rem`。当配置[自定义主题](#custom-themes)后，可以通过以下方式设置宽度：
 
 ```css
 .fi-page-sub-navigation-sidebar.w-72 {
@@ -67,7 +67,7 @@ public function panel(Panel $panel): Panel
 
 ## 添加背景图 {#add-background-image}
 
-FilamentPHP 默认的背景图是白色。当配置[自定义主题](#自定义主题)后，可以通过下面的方式设置自定义背景图。
+FilamentPHP 默认的背景图是白色。当配置[自定义主题](#custom-themes)后，可以通过下面的方式设置自定义背景图。
 
 <!-- markdownlint-disable MD013 -->
 ```css
@@ -773,7 +773,7 @@ public function panel(Panel $panel): Panel
 
 导航分组的排序规则按照上面的顺序应该是：`Shop` 、`Blog` 和 `Settings`。
 
-### 导航分组不可折叠 `collapsibleNavigationGroups()` {#non-collapsible-navigation-groups}
+### 导航分组不可折叠`collapsibleNavigationGroups()`{#non-collapsible-navigation-groups}
 
 默认情况下，导航分组是可折叠的，可以在配置中让所有的分组全局生效。
 
