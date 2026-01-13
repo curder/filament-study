@@ -13,7 +13,7 @@
     "fix": "npx markdownlint-cli2 --config .markdownlint-cli2.yaml --fix"
   },
   "engines": {
-    "node": ">=20.0"
+    "node": ">=22.0"
   },
   "devDependencies": {
     "markdownlint-cli2": "^0.17.2",
