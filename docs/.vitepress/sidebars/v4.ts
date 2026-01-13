@@ -6,6 +6,7 @@ const sidebar: Sidebar = [
         items: [
             {text: "安装 Installation", link: "/v4/installation"},
             {text: "面板 Panel Builder", link: "/v4/panel-builder"},
+            {text: "表格 Tables", link: "/v4/tables"},
         ]
     },
     {

@@ -12,7 +12,7 @@ TextColumn::make('row_number')
     ->state(fn (stdClass $row): int => $rowLoop->iteration)), // [!code ++]    
 ```
 
-要在表格中添加行号，可以使用 `rowIndex()` 选项。例如：
+要在表格中添加行号，也可以使用 `rowIndex()` 选项。例如：
 
 ```php
 use Filament\Tables\Columns\TextColumn;
@@ -21,3 +21,5 @@ TextColumn::make('row_number')
     ->label('#')
     ->rowIndex(), // [!code ++]
 ```
+
+![Table with Row Numbers](images/tables/table-with-row-numbers.png)
