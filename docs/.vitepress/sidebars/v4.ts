@@ -1,4 +1,6 @@
-export default [
+import type { Sidebar } from './types';
+
+const sidebar: Sidebar = [
     {
         text: "",
         items: [
@@ -13,4 +15,6 @@ export default [
             {text: "CSS 钩子", link: "/v4/styling/css-hooks"},
         ]
     }
-]
+];
+
+export default sidebar;

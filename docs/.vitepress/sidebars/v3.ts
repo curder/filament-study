@@ -1,4 +1,6 @@
-export default [
+import type { Sidebar } from './types';
+
+const sidebar: Sidebar = [
     {
         text: '',
         items: [
@@ -14,3 +16,5 @@ export default [
         ]
     },
 ];
+
+export default sidebar;
