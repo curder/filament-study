@@ -899,3 +899,29 @@ Textarea::make('host_issue')
 1. 在表单组件中使用 `registerListeners()` 方法注册自定义事件。
 
 2. 在视图中使用 `dispatchFormEvent()` 触发表单自定义事件。
+
+## 给字段添加默认值 {#default-value-for-field}
+
+在表单字段中可以使用 `default()` 方法给字段添加默认值。
+
+```php
+use Filament\Forms\Components\TextInput;
+
+TextInput::make('name')
+    ->default('John Doe'),
+```
+
+值得注意的是，如果已有状态值，default 不会覆盖。
+
+当发现默认值没显示，通常是因为该字段已经有保存过的值（哪怕是 null/空字符串）被 hydrate 进来了。 这时可用 `formatStateUsing()` “为空时兜底”：
+
+```php
+use Filament\Forms\Components\TextInput;
+
+TextInput::make('name')
+    ->default('John Doe')
+    ->formatStateUsing(fn (?string $state) => filled($state)
+    ? $state
+    : 'John Doe'
+)
+```
