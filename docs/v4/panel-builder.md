@@ -178,7 +178,7 @@ enum NavigationGroupEnum implements HasLabel
 
 资源 `$navigationIcon` 和导航组枚举 `getIcon` 方法只能二选一，当资源的 `$navigationIcon` 定义了图标且导航组枚举也实现了 `HasIcon` 接口时，会抛出错误。
 
-```
+```text
 Exception
 vendor/filament/filament/resources/views/components/sidebar/group.blade.php:171
 
@@ -186,4 +186,4 @@ Navigation group [] has an icon but one or more of its items also have icons. Ei
 ```
 :::
 
-![](./images/panel-builder/navigation-groups/custom-icon.jpg)
+![自定义资源图标](./images/panel-builder/navigation-groups/custom-icon.jpg)
