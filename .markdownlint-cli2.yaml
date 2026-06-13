@@ -86,5 +86,6 @@ config:
       - yaml
       - shell
       - json
+      - html
   # MD042/no-empty-links : No empty links : https://github.com/DavidAnson/markdownlint/blob/v0.37.4/doc/md042.md
   MD042: true
