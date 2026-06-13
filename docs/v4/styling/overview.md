@@ -30,7 +30,7 @@ php artisan make:filament-theme admin
 2. 在 `AdminPanelProvider` 中使用 `->viteTheme('resources/css/filament/admin/theme.css')` 注册主题
 3. 运行 `npm run build` 或者 `yarn build` 编译主题
 
-::: tip **注意**
+::: warning **注意**
 请参考命令查看需要注册的确切文件名，它们可能不是 `admin/theme.css`。
 :::
 
