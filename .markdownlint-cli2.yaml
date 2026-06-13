@@ -17,6 +17,7 @@ showFound: true
 # Define glob expressions to ignore.
 ignores:
   - "node_modules/"
+  - ".claude/"
 
 # Disable inline config comments.
 noInlineConfig: false
