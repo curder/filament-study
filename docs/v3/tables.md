@@ -168,7 +168,7 @@ class Post extends Model
 :::
 
 ::: tip **注意**
-由于我们自定义了一些 TailwindCss 样式，建议创建[自定义主题](customize-panel.md#自定义主题)来覆盖默认主题样式。
+由于我们自定义了一些 TailwindCss 样式，建议创建[自定义主题](customize-panel.md#custom-themes)来覆盖默认主题样式。
 :::
 
 ## 表格列上添加操作 `action()` {#custom-action-for-table}

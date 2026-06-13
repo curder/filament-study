@@ -911,9 +911,13 @@ TextInput::make('name')
     ->default('John Doe'),
 ```
 
-值得注意的是，如果已有状态值，default 不会覆盖。
+默认值只会在字段没有已有状态时生效。也就是说：
 
-当发现默认值没显示，通常是因为该字段已经有保存过的值（哪怕是 null/空字符串）被 hydrate 进来了。 这时可用 `formatStateUsing()` “为空时兜底”：
+- 用户输入的值优先级最高；
+- 已保存并被 hydrate 到表单中的值会覆盖默认值；
+- `default()` 只用于初始化空状态。
+
+当发现默认值没显示，通常是因为该字段已经有保存过的值（哪怕是 `null` / 空字符串）被 hydrate 进来了。这时可以用 `formatStateUsing()` 做“为空时兜底”：
 
 ```php
 use Filament\Forms\Components\TextInput;
@@ -921,7 +925,20 @@ use Filament\Forms\Components\TextInput;
 TextInput::make('name')
     ->default('John Doe')
     ->formatStateUsing(fn (?string $state) => filled($state)
-    ? $state
-    : 'John Doe'
-)
+        ? $state
+        : 'John Doe'
+    );
 ```
+
+也可以根据地址栏参数设置默认值，例如在指定分类下新增文章时，让分类字段默认选中对应分类：
+
+```php
+use App\Models\PostCategory;
+use Filament\Forms\Components\Select;
+
+Select::make('post_category_id')
+    ->options(PostCategory::query()->pluck('name', 'id'))
+    ->default(fn () => request()->query('category_id')),
+```
+
+访问 `PostResource/pages/create?category_id=1` 时，`post_category_id` 会默认选中 `1`。如果用户手动修改了分类，已输入的值不会被 `default()` 覆盖。
