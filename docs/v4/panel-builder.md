@@ -21,14 +21,13 @@ public function panel(Panel $panel): Panel
 
 namespace App\Enums;
 
-use BackedEnum;
 use Filament\Support\Icons\Heroicon;
+use Filament\Support\Contracts\Collapsible;
 use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 use Illuminate\Contracts\Support\Htmlable;
-use Filament\Support\Contracts\Collapsible;
 
-enum NavigationGroupEnum implements Collapsible, HasIcon, HasLabel
+enum NavigationGroupEnum implements HasLabel, HasIcon, Collapsible
 {
     case ProjectManagement;
     case UserManagement;
@@ -177,7 +176,7 @@ enum NavigationGroupEnum implements HasLabel
 
 :::danger 注意
 
-资源 `$navigationIcon` 和导航组枚举 `getIcon` 方法只能二选一，当资源的 `$navigationIcon` 定义了图标且导航组枚举也实现了 `HasIcon` 接口时，会抛出错误。：
+资源 `$navigationIcon` 和导航组枚举 `getIcon` 方法只能二选一，当资源的 `$navigationIcon` 定义了图标且导航组枚举也实现了 `HasIcon` 接口时，会抛出错误。
 
 ```
 Exception
